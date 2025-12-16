@@ -2,29 +2,48 @@ import { motion } from "framer-motion";
 
 const CompanyProfile = () => {
     const timeline = [
-        { year: "2023", events: ["Company Founded", "First Project Planning"] },
-        { year: "2024", events: ["Project Alpha Launch", "Sold 50% Units"] },
-        { year: "2025", events: ["Project Beta Launch", "Expansion Plans"] },
+        {
+            year: "2023",
+            events: [
+                "Mendirikan PT. Madani Utama Celebes",
+                "Membuat izin perumahan",
+                'Mendaftarkan merk dagang "MUSVILLE"',
+            ],
+        },
+        {
+            year: "2024",
+            events: [
+                'Membangun perumahan syari\'ah pertama, "Musville Residence Baliase" dan SOLD OUT dalam 3 bulan',
+                'Persiapan Project kedua "Musville SkyView"',
+            ],
+        },
+        {
+            year: "2025",
+            events: [
+                "Pembangunan Project Kedua, Musville SkyView",
+                "Persiapan Project Ketiga",
+            ],
+        },
     ];
 
     const profiles = [
         {
             title: "Our History",
             content:
-                "Founded in 2023, we specialize in Real Estate, Construction, and Tourism Area Development with a commitment to quality and sustainability.",
+                "PT Madani Utama Selebes didirikan pada tanggal 29 Juli 2023 yang bergerak di bidang Real Estate, Konstruksi, dan Pengembangan Area Wisata. Berawal dari CV. Langit Karya Tadulako yang telah beroperasi sejak 2017 dalam Agency Real Estate.",
         },
         {
             title: "Core Business",
             items: [
                 "Real Estate Development",
-                "Construction Services",
+                "Construction (Residential & Civil Infrastructure)",
                 "Tourism Area Development",
             ],
         },
         {
             title: "Our Commitment",
             content:
-                "Developing shariah-based properties with the best quality and providing benefits to the community.",
+                "Mengembangkan properti berbasis syariah dengan kualitas terbaik dan memberikan manfaat bagi masyarakat",
         },
     ];
 
@@ -33,7 +52,7 @@ const CompanyProfile = () => {
             {/* Company Profile */}
             <section
                 id="about"
-                className="py-16 bg-linear-to-b from-gray-900 to-black"
+                className="py-16 bg-linear-to-b from-black to-gray-900"
             >
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     <motion.div
@@ -47,7 +66,42 @@ const CompanyProfile = () => {
                             Company Profile
                         </h2>
                     </motion.div>
-                    <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+
+                    {/* Company Info Stats */}
+                    <motion.div
+                        initial={{ opacity: 0, y: 30 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true }}
+                        transition={{ duration: 0.6, delay: 0.3 }}
+                        className="mt-16 grid grid-cols-1 md:grid-cols-3 gap-8 text-center"
+                    >
+                        <div className="group">
+                            <div className="text-4xl font-bold text-amber-500 mb-2 group-hover:scale-110 transition-transform">
+                                2017
+                            </div>
+                            <div className="text-gray-400 text-sm uppercase tracking-wide">
+                                Founded As Agency
+                            </div>
+                        </div>
+                        <div className="group">
+                            <div className="text-4xl font-bold text-amber-500 mb-2 group-hover:scale-110 transition-transform">
+                                2023
+                            </div>
+                            <div className="text-gray-400 text-sm uppercase tracking-wide">
+                                PT MUS Established
+                            </div>
+                        </div>
+                        <div className="group">
+                            <div className="text-4xl font-bold text-amber-500 mb-2 group-hover:scale-110 transition-transform">
+                                3
+                            </div>
+                            <div className="text-gray-400 text-sm uppercase tracking-wide">
+                                Business Units
+                            </div>
+                        </div>
+                    </motion.div>
+
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mt-12">
                         {profiles.map((profile, index) => (
                             <motion.div
                                 key={index}
@@ -105,14 +159,30 @@ const CompanyProfile = () => {
                             transition={{ duration: 0.6 }}
                             className="bg-black/30 backdrop-blur-lg border border-white/20 rounded-lg p-8 hover:bg-black/40 transition"
                         >
-                            <div className="text-5xl font-bold mb-4 text-amber-200">
-                                2030
+                            <div className="flex items-center gap-4 mb-4">
+                                <svg
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    className="h-14 w-14 text-amber-200"
+                                    fill="none"
+                                    viewBox="0 0 24 24"
+                                    stroke="currentColor"
+                                >
+                                    <path
+                                        strokeLinecap="round"
+                                        strokeLinejoin="round"
+                                        strokeWidth={2}
+                                        d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"
+                                    />
+                                </svg>
+                                <div className="text-5xl font-bold text-amber-200">
+                                    2030
+                                </div>
                             </div>
                             <h3 className="text-2xl font-semibold mb-3">
                                 Vision
                             </h3>
                             <p className="text-amber-100">
-                                To become the best Shariah Housing Developer in
+                                Menjadi Developer Perumahan Syariah terbaik di
                                 Indonesia
                             </p>
                         </motion.div>
@@ -123,15 +193,37 @@ const CompanyProfile = () => {
                             transition={{ duration: 0.6 }}
                             className="bg-black/30 backdrop-blur-lg border border-white/20 rounded-lg p-8 hover:bg-black/40 transition"
                         >
-                            <div className="text-5xl font-bold mb-4 text-amber-200">
-                                2050
+                            <div className="flex items-center gap-4 mb-4">
+                                <svg
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    className="h-14 w-14 text-amber-200"
+                                    fill="none"
+                                    viewBox="0 0 24 24"
+                                    stroke="currentColor"
+                                >
+                                    <path
+                                        strokeLinecap="round"
+                                        strokeLinejoin="round"
+                                        strokeWidth={2}
+                                        d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"
+                                    />
+                                    <path
+                                        strokeLinecap="round"
+                                        strokeLinejoin="round"
+                                        strokeWidth={2}
+                                        d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"
+                                    />
+                                </svg>
+                                <div className="text-5xl font-bold text-amber-200">
+                                    2050
+                                </div>
                             </div>
                             <h3 className="text-2xl font-semibold mb-3">
                                 Vision
                             </h3>
                             <p className="text-amber-100">
-                                To become an iconic Islamic Tourism and the
-                                largest Shariah Resort in Indonesia
+                                Menjadi Ikonik Wisata Islami dan Resort Syariah
+                                terbesar di Indonesia
                             </p>
                         </motion.div>
                     </div>
@@ -139,7 +231,7 @@ const CompanyProfile = () => {
             </section>
 
             {/* Company Journey */}
-            <section className="py-16 bg-black">
+            <section className="py-16 bg-linear-to-b from-gray-900 to-black">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     <motion.div
                         initial={{ opacity: 0, y: 30 }}
@@ -169,11 +261,11 @@ const CompanyProfile = () => {
                                 className="mb-8 flex"
                             >
                                 <div className="flex flex-col items-center mr-4">
-                                    <div className="flex items-center justify-center w-12 h-12 bg-linear-to-br from-amber-500 to-yellow-600 rounded-full text-black font-bold shadow-lg shadow-amber-500/50">
+                                    <div className="shrink-0 flex items-center justify-center w-16 h-16 bg-linear-to-br from-amber-500 to-yellow-600 rounded-full text-black font-bold text-sm shadow-lg shadow-amber-500/50">
                                         {item.year}
                                     </div>
                                     {index < timeline.length - 1 && (
-                                        <div className="w-1 h-full bg-linear-to-b from-amber-500 to-yellow-600"></div>
+                                        <div className="w-1 flex-1 bg-linear-to-b from-amber-500 to-yellow-600"></div>
                                     )}
                                 </div>
                                 <div className="bg-gray-900 border border-amber-500/30 rounded-lg p-6 flex-1 hover:border-amber-500/50 transition">

@@ -4,16 +4,16 @@ import { useState, useEffect } from "react";
 const Hero = () => {
     const images = [
         {
-            url: "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=1920&h=1080&fit=crop&q=80",
-            alt: "Modern Building 1",
+            url: "/assets/images/skyview.jpg",
+            alt: "Skyview Modern Building",
         },
         {
-            url: "https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?w=1920&h=1080&fit=crop&q=80",
-            alt: "Modern Building 2",
+            url: "/assets/images/baliase.jpg",
+            alt: "Baliase Modern Building",
         },
         {
-            url: "https://images.unsplash.com/photo-1460472178825-e5240623afd5?w=1920&h=1080&fit=crop&q=80",
-            alt: "Modern Building 3",
+            url: "/assets/images/comming-soon.jpeg",
+            alt: "Coming Soon Modern Building",
         },
     ];
 

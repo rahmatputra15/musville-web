@@ -1,11 +1,10 @@
 import { Head } from "@inertiajs/react";
-import Navbar from "../../components/Navbar";
-import Footer from "../../components/Footer";
-import Hero from "../../components/Home/Hero";
-import Projects from "../../components/Home/Projects";
-import Statement from "../../components/Home/Statement";
-import CompanyProfile from "../../components/Home/CompanyProfile";
-import Partnership from "../../components/Home/Partnership";
+import UsersLayout from "../../components/Users/UsersLayout";
+import Hero from "../../components/Users/Home/Hero";
+import Projects from "../../components/Users/Home/Projects";
+import Statement from "../../components/Users/Home/Statement";
+import CompanyProfile from "../../components/Users/Home/CompanyProfile";
+import Partnership from "../../components/Users/Home/Partnership";
 
 const Home = () => {
     return (
@@ -33,17 +32,13 @@ const Home = () => {
                 <meta name="twitter:image" content="/assets/logos/logo.png" />
             </Head>
 
-            <div className="min-h-screen bg-black">
-                <Navbar activePage="home" />
-
+            <UsersLayout activePage="home">
                 <Hero />
                 <Projects />
                 <Statement />
                 <CompanyProfile />
                 <Partnership />
-
-                <Footer />
-            </div>
+            </UsersLayout>
         </>
     );
 };

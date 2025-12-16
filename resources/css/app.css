@@ -27,4 +27,32 @@
     .animate-slide-down {
         animation: slide-down 0.3s ease-out;
     }
+
+    /* Custom Scrollbar Styling */
+    .scrollbar-thin::-webkit-scrollbar {
+        height: 8px;
+    }
+
+    .scrollbar-thin::-webkit-scrollbar-track {
+        background: rgb(31, 41, 55);
+        border-radius: 10px;
+    }
+
+    .scrollbar-thin::-webkit-scrollbar-thumb {
+        background: linear-gradient(
+            to right,
+            rgb(245, 158, 11),
+            rgb(234, 179, 8)
+        );
+        border-radius: 10px;
+        transition: background 0.3s;
+    }
+
+    .scrollbar-thin::-webkit-scrollbar-thumb:hover {
+        background: linear-gradient(
+            to right,
+            rgb(217, 119, 6),
+            rgb(202, 138, 4)
+        );
+    }
 }

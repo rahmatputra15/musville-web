@@ -28,8 +28,14 @@ const Statement = () => {
                             whileInView={{ opacity: 1, x: 0 }}
                             viewport={{ once: true }}
                             transition={{ duration: 0.6, delay: 0.4 }}
-                            className="w-32 h-32 rounded-full bg-linear-to-br from-amber-500 to-yellow-600 shrink-0"
-                        ></motion.div>
+                            className="w-32 h-32 rounded-full bg-linear-to-br from-amber-500 to-yellow-600 shrink-0 overflow-hidden border-4 border-amber-500"
+                        >
+                            <img
+                                src="/assets/images/profil.jpeg"
+                                alt="Muhammad Arief Mustafa"
+                                className="w-full h-full object-cover"
+                            />
+                        </motion.div>
                         <motion.div
                             initial={{ opacity: 0, x: 30 }}
                             whileInView={{ opacity: 1, x: 0 }}
@@ -37,16 +43,18 @@ const Statement = () => {
                             transition={{ duration: 0.6, delay: 0.4 }}
                         >
                             <p className="text-gray-300 text-lg italic mb-6">
-                                "The best companies are those that bring the
-                                most benefit to others. We are committed to
-                                creating sustainable and quality developments
-                                that serve our community."
+                                "Sebaik-baik manusia ialah yang bermanfaat bagi
+                                yang lainnya. Begitupula Perusahaan, bisnis mana
+                                yang paling banyak memberi manfaat, itulah yang
+                                akan terus bertumbuh"
                             </p>
                             <div>
                                 <p className="font-semibold text-amber-500">
-                                    John Doe
+                                    Muhammad Arief Mustafa
                                 </p>
-                                <p className="text-gray-400">CEO & Founder</p>
+                                <p className="text-gray-400">
+                                    Direktur Utama PT. MUS
+                                </p>
                             </div>
                         </motion.div>
                     </div>
