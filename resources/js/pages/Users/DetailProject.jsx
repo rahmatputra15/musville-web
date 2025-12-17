@@ -329,7 +329,7 @@ const DetailProject = ({ project }) => {
                                         className="h-full bg-linear-to-r from-amber-500 to-yellow-600 transition-all duration-500"
                                     />
                                 </div>
-                                <span className="text-amber-500 font-bold text-xl min-w-[60px] text-right">
+                                <span className="text-amber-500 font-bold text-xl min-w-20 text-right">
                                     {Math.round(
                                         (project.unitsSold /
                                             project.unitsTotal) *

@@ -1,8 +1,13 @@
-import { Head } from "@inertiajs/react";
+import { Head, usePage, router } from "@inertiajs/react";
 import { useState, useEffect } from "react";
 import DashboardLayout from "../../components/Dashboard/DashboardLayout";
 
 const Dashboard = () => {
+    const { auth } = usePage().props;
+
+    const handleLogout = () => {
+        router.post("/logout");
+    };
     const [animateProgress, setAnimateProgress] = useState(false);
 
     useEffect(() => {
@@ -129,7 +134,7 @@ const Dashboard = () => {
                 />
             </Head>
 
-            <DashboardLayout activePage="dashboard">
+            <DashboardLayout activePage="/admin/dashboard">
                 {/* Welcome Section */}
                 <div className="mb-8">
                     <h1 className="text-4xl font-bold text-amber-400 mb-2">

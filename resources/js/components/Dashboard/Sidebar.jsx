@@ -9,7 +9,7 @@ const Sidebar = ({
     const menuItems = [
         {
             name: "Dashboard",
-            href: "/dashboard",
+            href: "/admin/dashboard",
             icon: (
                 <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -29,7 +29,7 @@ const Sidebar = ({
         },
         {
             name: "Projects",
-            href: "/dashboard/projects",
+            href: "/admin/projects",
             icon: (
                 <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -49,7 +49,7 @@ const Sidebar = ({
         },
         {
             name: "Users",
-            href: "/dashboard/users",
+            href: "/admin/users",
             icon: (
                 <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -69,7 +69,7 @@ const Sidebar = ({
         },
         {
             name: "Settings",
-            href: "/dashboard/settings",
+            href: "/admin/settings",
             icon: (
                 <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -133,10 +133,7 @@ const Sidebar = ({
                 <nav className="flex-1 overflow-y-auto p-4">
                     <ul className="space-y-2">
                         {menuItems.map((item) => {
-                            const isActive =
-                                activePage === item.href.split("/").pop() ||
-                                (item.href === "/dashboard" &&
-                                    activePage === "dashboard");
+                            const isActive = activePage === item.href;
                             return (
                                 <li key={item.name}>
                                     <Link

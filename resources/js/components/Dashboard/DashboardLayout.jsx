@@ -2,7 +2,7 @@ import { useState } from "react";
 import Sidebar from "./Sidebar";
 import DashboardNavbar from "./DashboardNavbar";
 
-const DashboardLayout = ({ children, activePage = "dashboard" }) => {
+const DashboardLayout = ({ children, activePage = "/admin/dashboard" }) => {
     const [isCollapsed, setIsCollapsed] = useState(false);
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
