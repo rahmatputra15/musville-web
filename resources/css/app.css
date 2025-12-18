@@ -30,7 +30,8 @@
 
     /* Custom Scrollbar Styling */
     .scrollbar-thin::-webkit-scrollbar {
-        height: 8px;
+        width: 6px;
+        height: 6px;
     }
 
     .scrollbar-thin::-webkit-scrollbar-track {

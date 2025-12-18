@@ -59,6 +59,19 @@ class UserController extends Controller
             'phone' => 'nullable|string|max:20',
             'role' => 'required|string|exists:roles,name',
             'is_active' => 'boolean',
+        ], [
+            'name.required' => 'The name is required.',
+            'name.max' => 'The name may not be greater than 255 characters.',
+            'email.required' => 'The email is required.',
+            'email.email' => 'The email must be a valid email address.',
+            'email.max' => 'The email may not be greater than 255 characters.',
+            'email.unique' => 'The email has already been taken.',
+            'password.required' => 'The password is required.',
+            'password.min' => 'The password must be at least 8 characters.',
+            'password.confirmed' => 'The password confirmation does not match.',
+            'phone.max' => 'The phone may not be greater than 20 characters.',
+            'role.required' => 'The role is required.',
+            'role.exists' => 'The selected role is invalid.',
         ]);
 
         $user = User::create([

@@ -15,7 +15,7 @@ class AdminUserSeeder extends Seeder
     {
         // Create Super Admin
         $superAdmin = User::firstOrCreate(
-            ['email' => 'superadmin@musville.com'],
+            ['email' => 'superadmin@musville.id'],
             [
                 'name' => 'Super Admin',
                 'password' => Hash::make('password'),
@@ -28,7 +28,7 @@ class AdminUserSeeder extends Seeder
 
         // Create Admin
         $admin = User::firstOrCreate(
-            ['email' => 'admin@musville.com'],
+            ['email' => 'admin@musville.id'],
             [
                 'name' => 'Admin',
                 'password' => Hash::make('password'),
@@ -41,7 +41,7 @@ class AdminUserSeeder extends Seeder
 
         // Create Editor
         $editor = User::firstOrCreate(
-            ['email' => 'editor@musville.com'],
+            ['email' => 'editor@musville.id'],
             [
                 'name' => 'Editor',
                 'password' => Hash::make('password'),
@@ -53,8 +53,8 @@ class AdminUserSeeder extends Seeder
         $editor->assignRole('editor');
 
         $this->command->info('Admin users created successfully!');
-        $this->command->info('Super Admin - Email: superadmin@musville.com | Password: password');
-        $this->command->info('Admin - Email: admin@musville.com | Password: password');
-        $this->command->info('Editor - Email: editor@musville.com | Password: password');
+        $this->command->info('Super Admin - Email: superadmin@musville.id | Password: password');
+        $this->command->info('Admin - Email: admin@musville.id | Password: password');
+        $this->command->info('Editor - Email: editor@musville.id | Password: password');
     }
 }

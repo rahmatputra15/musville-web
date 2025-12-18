@@ -1,6 +1,5 @@
 import { Head, Link, router, usePage } from "@inertiajs/react";
 import { useState, useEffect } from "react";
-import { motion, AnimatePresence } from "framer-motion";
 import DashboardLayout from "../../components/Dashboard/DashboardLayout";
 
 const Users = () => {
@@ -238,64 +237,54 @@ const Users = () => {
 
             <DashboardLayout activePage="/admin/users">
                 {/* Flash Notification */}
-                <AnimatePresence>
-                    {(notification || flash?.success || flash?.error) && (
-                        <motion.div
-                            initial={{ opacity: 0, y: 50 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            exit={{ opacity: 0, y: 50 }}
-                            className="fixed bottom-6 right-6 z-50 max-w-md"
+                {(notification || flash?.success || flash?.error) && (
+                    <div className="fixed bottom-6 right-6 z-50 max-w-md">
+                        <div
+                            className={`relative p-4 pr-12 rounded-lg shadow-2xl border overflow-hidden ${
+                                notification?.type === "error" || flash?.error
+                                    ? "bg-red-500/95 border-red-600 text-white"
+                                    : "bg-green-500/95 border-green-600 text-white"
+                            } backdrop-blur-sm`}
                         >
-                            <div
-                                className={`relative p-4 pr-12 rounded-lg shadow-2xl border overflow-hidden ${
-                                    notification?.type === "error" ||
-                                    flash?.error
-                                        ? "bg-red-500/95 border-red-600 text-white"
-                                        : "bg-green-500/95 border-green-600 text-white"
-                                } backdrop-blur-sm`}
+                            {/* Close Button */}
+                            <button
+                                onClick={() => {
+                                    setNotification(null);
+                                    if (flash?.success || flash?.error) {
+                                        router.reload({ only: ["flash"] });
+                                    }
+                                }}
+                                className="absolute top-3 right-3 hover:bg-white/20 rounded-full p-1 transition-colors"
+                                aria-label="Close notification"
                             >
-                                {/* Close Button */}
-                                <button
-                                    onClick={() => {
-                                        setNotification(null);
-                                        if (flash?.success || flash?.error) {
-                                            router.reload({ only: ["flash"] });
-                                        }
-                                    }}
-                                    className="absolute top-3 right-3 hover:bg-white/20 rounded-full p-1 transition-colors"
-                                    aria-label="Close notification"
+                                <svg
+                                    className="w-5 h-5"
+                                    fill="none"
+                                    strokeLinecap="round"
+                                    strokeLinejoin="round"
+                                    strokeWidth="2"
+                                    viewBox="0 0 24 24"
+                                    stroke="currentColor"
                                 >
-                                    <svg
-                                        className="w-5 h-5"
-                                        fill="none"
-                                        strokeLinecap="round"
-                                        strokeLinejoin="round"
-                                        strokeWidth="2"
-                                        viewBox="0 0 24 24"
-                                        stroke="currentColor"
-                                    >
-                                        <path d="M6 18L18 6M6 6l12 12"></path>
-                                    </svg>
-                                </button>
+                                    <path d="M6 18L18 6M6 6l12 12"></path>
+                                </svg>
+                            </button>
 
-                                {/* Message */}
-                                <div className="pr-2">
-                                    {notification?.message ||
-                                        flash?.success ||
-                                        flash?.error}
-                                </div>
-
-                                {/* Loading Bar */}
-                                <motion.div
-                                    className="absolute bottom-0 left-0 h-1 bg-white/40"
-                                    initial={{ width: "100%" }}
-                                    animate={{ width: "0%" }}
-                                    transition={{ duration: 3, ease: "linear" }}
-                                />
+                            {/* Message */}
+                            <div className="pr-2">
+                                {notification?.message ||
+                                    flash?.success ||
+                                    flash?.error}
                             </div>
-                        </motion.div>
-                    )}
-                </AnimatePresence>
+
+                            {/* Loading Bar */}
+                            <div
+                                className="absolute bottom-0 left-0 h-1 bg-white/40 transition-all duration-3000 ease-linear"
+                                style={{ width: "0%" }}
+                            />
+                        </div>
+                    </div>
+                )}
 
                 <div className="p-6">
                     {/* Header */}
@@ -448,13 +437,8 @@ const Users = () => {
                                 <tbody>
                                     {users.data.length > 0 ? (
                                         users.data.map((user, index) => (
-                                            <motion.tr
+                                            <tr
                                                 key={user.id}
-                                                initial={{ opacity: 0, y: 20 }}
-                                                animate={{ opacity: 1, y: 0 }}
-                                                transition={{
-                                                    delay: index * 0.05,
-                                                }}
                                                 className="border-b border-amber-500/10 hover:bg-amber-500/5 transition"
                                             >
                                                 <td className="px-6 py-4">
@@ -610,7 +594,7 @@ const Users = () => {
                                                         </button>
                                                     </div>
                                                 </td>
-                                            </motion.tr>
+                                            </tr>
                                         ))
                                     ) : (
                                         <tr>
@@ -658,316 +642,295 @@ const Users = () => {
                 </div>
 
                 {/* Delete Confirmation Modal */}
-                <AnimatePresence>
-                    {showDeleteModal && (
-                        <motion.div
-                            initial={{ opacity: 0 }}
-                            animate={{ opacity: 1 }}
-                            exit={{ opacity: 0 }}
-                            className="fixed inset-0 bg-black/80 flex items-center justify-center z-50 p-4"
-                            onClick={() => setShowDeleteModal(false)}
+                {showDeleteModal && (
+                    <div
+                        className="fixed inset-0 bg-black/80 flex items-center justify-center z-50 p-4"
+                        onClick={() => setShowDeleteModal(false)}
+                    >
+                        <div
+                            className="bg-gray-900 border border-amber-500/30 rounded-lg p-6 max-w-md w-full"
+                            onClick={(e) => e.stopPropagation()}
                         >
-                            <motion.div
-                                initial={{ scale: 0.9, opacity: 0 }}
-                                animate={{ scale: 1, opacity: 1 }}
-                                exit={{ scale: 0.9, opacity: 0 }}
-                                className="bg-gray-900 border border-amber-500/30 rounded-lg p-6 max-w-md w-full"
-                                onClick={(e) => e.stopPropagation()}
-                            >
-                                <h3 className="text-xl font-bold text-amber-400 mb-4">
-                                    Confirm Delete
-                                </h3>
-                                <p className="text-gray-300 mb-6">
-                                    Are you sure you want to delete user{" "}
-                                    <strong>{userToDelete?.name}</strong>? This
-                                    action cannot be undone.
-                                </p>
-                                <div className="flex gap-4 justify-end">
+                            <h3 className="text-xl font-bold text-amber-400 mb-4">
+                                Confirm Delete
+                            </h3>
+                            <p className="text-gray-300 mb-6">
+                                Are you sure you want to delete user{" "}
+                                <strong>{userToDelete?.name}</strong>? This
+                                action cannot be undone.
+                            </p>
+                            <div className="flex gap-4 justify-end">
+                                <button
+                                    onClick={() => setShowDeleteModal(false)}
+                                    className="px-4 py-2 bg-gray-700 text-white rounded-lg hover:bg-gray-600 transition"
+                                >
+                                    Cancel
+                                </button>
+                                <button
+                                    onClick={confirmDelete}
+                                    className="px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 transition"
+                                >
+                                    Delete
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                )}
+
+                {/* Create/Edit User Modal */}
+                {(showCreateModal || showEditModal) && (
+                    <div
+                        className="fixed inset-0 bg-black/80 flex items-center justify-center z-50 p-4 overflow-y-auto"
+                        onClick={closeModal}
+                    >
+                        <div
+                            className="bg-gray-900 border border-amber-500/30 rounded-lg p-6 max-w-2xl w-full my-8"
+                            onClick={(e) => e.stopPropagation()}
+                        >
+                            <h3 className="text-2xl font-bold text-amber-400 mb-6">
+                                {showEditModal
+                                    ? "Edit User"
+                                    : "Create New User"}
+                            </h3>
+
+                            <form onSubmit={handleSubmit} className="space-y-4">
+                                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                    {/* Name */}
+                                    <div>
+                                        <label className="block text-gray-300 mb-2 font-medium">
+                                            Name{" "}
+                                            <span className="text-red-500">
+                                                *
+                                            </span>
+                                        </label>
+                                        <input
+                                            type="text"
+                                            name="name"
+                                            value={formData.name}
+                                            onChange={handleFormChange}
+                                            className={`w-full px-4 py-2 bg-black/50 border ${
+                                                formErrors.name
+                                                    ? "border-red-500"
+                                                    : "border-amber-500/50"
+                                            } rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-amber-500`}
+                                            placeholder="Enter full name"
+                                        />
+                                        {formErrors.name && (
+                                            <p className="text-red-500 text-sm mt-1">
+                                                {formErrors.name}
+                                            </p>
+                                        )}
+                                    </div>
+
+                                    {/* Email */}
+                                    <div>
+                                        <label className="block text-gray-300 mb-2 font-medium">
+                                            Email{" "}
+                                            <span className="text-red-500">
+                                                *
+                                            </span>
+                                        </label>
+                                        <input
+                                            type="email"
+                                            name="email"
+                                            value={formData.email}
+                                            onChange={handleFormChange}
+                                            className={`w-full px-4 py-2 bg-black/50 border ${
+                                                formErrors.email
+                                                    ? "border-red-500"
+                                                    : "border-amber-500/50"
+                                            } rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-amber-500`}
+                                            placeholder="Enter email address"
+                                        />
+                                        {formErrors.email && (
+                                            <p className="text-red-500 text-sm mt-1">
+                                                {formErrors.email}
+                                            </p>
+                                        )}
+                                    </div>
+
+                                    {/* Phone */}
+                                    <div>
+                                        <label className="block text-gray-300 mb-2 font-medium">
+                                            Phone
+                                        </label>
+                                        <input
+                                            type="text"
+                                            name="phone"
+                                            value={formData.phone}
+                                            onChange={handleFormChange}
+                                            className={`w-full px-4 py-2 bg-black/50 border ${
+                                                formErrors.phone
+                                                    ? "border-red-500"
+                                                    : "border-amber-500/50"
+                                            } rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-amber-500`}
+                                            placeholder="Enter phone number"
+                                        />
+                                        {formErrors.phone && (
+                                            <p className="text-red-500 text-sm mt-1">
+                                                {formErrors.phone}
+                                            </p>
+                                        )}
+                                    </div>
+
+                                    {/* Role */}
+                                    <div>
+                                        <label className="block text-gray-300 mb-2 font-medium">
+                                            Role{" "}
+                                            <span className="text-red-500">
+                                                *
+                                            </span>
+                                        </label>
+                                        <div className="relative">
+                                            <select
+                                                name="role"
+                                                value={formData.role}
+                                                onChange={handleFormChange}
+                                                className={`w-full pl-4 pr-10 py-2 bg-black/50 border ${
+                                                    formErrors.role
+                                                        ? "border-red-500"
+                                                        : "border-amber-500/50"
+                                                } rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-amber-500 appearance-none`}
+                                            >
+                                                <option value="">
+                                                    Select role
+                                                </option>
+                                                {roles.map((role) => (
+                                                    <option
+                                                        key={role}
+                                                        value={role}
+                                                    >
+                                                        {role}
+                                                    </option>
+                                                ))}
+                                            </select>
+                                            <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3">
+                                                <svg
+                                                    className="h-5 w-5 text-amber-500"
+                                                    xmlns="http://www.w3.org/2000/svg"
+                                                    viewBox="0 0 20 20"
+                                                    fill="currentColor"
+                                                >
+                                                    <path
+                                                        fillRule="evenodd"
+                                                        d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                                                        clipRule="evenodd"
+                                                    />
+                                                </svg>
+                                            </div>
+                                        </div>
+                                        {formErrors.role && (
+                                            <p className="text-red-500 text-sm mt-1">
+                                                {formErrors.role}
+                                            </p>
+                                        )}
+                                    </div>
+
+                                    {/* Password */}
+                                    <div>
+                                        <label className="block text-gray-300 mb-2 font-medium">
+                                            Password{" "}
+                                            {!showEditModal && (
+                                                <span className="text-red-500">
+                                                    *
+                                                </span>
+                                            )}
+                                            {showEditModal && (
+                                                <span className="text-gray-500 text-sm">
+                                                    (leave blank to keep
+                                                    current)
+                                                </span>
+                                            )}
+                                        </label>
+                                        <input
+                                            type="password"
+                                            name="password"
+                                            value={formData.password}
+                                            onChange={handleFormChange}
+                                            className={`w-full px-4 py-2 bg-black/50 border ${
+                                                formErrors.password
+                                                    ? "border-red-500"
+                                                    : "border-amber-500/50"
+                                            } rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-amber-500`}
+                                            placeholder="Enter password"
+                                        />
+                                        {formErrors.password && (
+                                            <p className="text-red-500 text-sm mt-1">
+                                                {formErrors.password}
+                                            </p>
+                                        )}
+                                    </div>
+
+                                    {/* Password Confirmation */}
+                                    <div>
+                                        <label className="block text-gray-300 mb-2 font-medium">
+                                            Confirm Password{" "}
+                                            {!showEditModal && (
+                                                <span className="text-red-500">
+                                                    *
+                                                </span>
+                                            )}
+                                        </label>
+                                        <input
+                                            type="password"
+                                            name="password_confirmation"
+                                            value={
+                                                formData.password_confirmation
+                                            }
+                                            onChange={handleFormChange}
+                                            className={`w-full px-4 py-2 bg-black/50 border ${
+                                                formErrors.password_confirmation
+                                                    ? "border-red-500"
+                                                    : "border-amber-500/50"
+                                            } rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-amber-500`}
+                                            placeholder="Confirm password"
+                                        />
+                                        {formErrors.password_confirmation && (
+                                            <p className="text-red-500 text-sm mt-1">
+                                                {
+                                                    formErrors.password_confirmation
+                                                }
+                                            </p>
+                                        )}
+                                    </div>
+                                </div>
+
+                                {/* Active Status */}
+                                <div className="flex items-center gap-3 p-4 bg-black/30 rounded-lg">
+                                    <input
+                                        type="checkbox"
+                                        name="is_active"
+                                        checked={formData.is_active}
+                                        onChange={handleFormChange}
+                                        className="w-5 h-5 text-amber-500 bg-black/50 border-amber-500/50 rounded focus:ring-amber-500"
+                                    />
+                                    <label className="text-gray-300 font-medium">
+                                        Active User
+                                    </label>
+                                </div>
+
+                                {/* Form Actions */}
+                                <div className="flex gap-4 justify-end pt-4 border-t border-amber-500/30">
                                     <button
-                                        onClick={() =>
-                                            setShowDeleteModal(false)
-                                        }
-                                        className="px-4 py-2 bg-gray-700 text-white rounded-lg hover:bg-gray-600 transition"
+                                        type="button"
+                                        onClick={closeModal}
+                                        className="px-6 py-2 bg-gray-700 text-white rounded-lg hover:bg-gray-600 transition"
                                     >
                                         Cancel
                                     </button>
                                     <button
-                                        onClick={confirmDelete}
-                                        className="px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 transition"
+                                        type="submit"
+                                        className="px-6 py-2 bg-amber-500 text-black font-semibold rounded-lg hover:bg-amber-600 transition"
                                     >
-                                        Delete
+                                        {showEditModal
+                                            ? "Update User"
+                                            : "Create User"}
                                     </button>
                                 </div>
-                            </motion.div>
-                        </motion.div>
-                    )}
-                </AnimatePresence>
-
-                {/* Create/Edit User Modal */}
-                <AnimatePresence>
-                    {(showCreateModal || showEditModal) && (
-                        <motion.div
-                            initial={{ opacity: 0 }}
-                            animate={{ opacity: 1 }}
-                            exit={{ opacity: 0 }}
-                            className="fixed inset-0 bg-black/80 flex items-center justify-center z-50 p-4 overflow-y-auto"
-                            onClick={closeModal}
-                        >
-                            <motion.div
-                                initial={{ scale: 0.9, opacity: 0 }}
-                                animate={{ scale: 1, opacity: 1 }}
-                                exit={{ scale: 0.9, opacity: 0 }}
-                                className="bg-gray-900 border border-amber-500/30 rounded-lg p-6 max-w-2xl w-full my-8"
-                                onClick={(e) => e.stopPropagation()}
-                            >
-                                <h3 className="text-2xl font-bold text-amber-400 mb-6">
-                                    {showEditModal
-                                        ? "Edit User"
-                                        : "Create New User"}
-                                </h3>
-
-                                <form
-                                    onSubmit={handleSubmit}
-                                    className="space-y-4"
-                                >
-                                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                                        {/* Name */}
-                                        <div>
-                                            <label className="block text-gray-300 mb-2 font-medium">
-                                                Name{" "}
-                                                <span className="text-red-500">
-                                                    *
-                                                </span>
-                                            </label>
-                                            <input
-                                                type="text"
-                                                name="name"
-                                                value={formData.name}
-                                                onChange={handleFormChange}
-                                                className={`w-full px-4 py-2 bg-black/50 border ${
-                                                    formErrors.name
-                                                        ? "border-red-500"
-                                                        : "border-amber-500/50"
-                                                } rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-amber-500`}
-                                                placeholder="Enter full name"
-                                            />
-                                            {formErrors.name && (
-                                                <p className="text-red-500 text-sm mt-1">
-                                                    {formErrors.name}
-                                                </p>
-                                            )}
-                                        </div>
-
-                                        {/* Email */}
-                                        <div>
-                                            <label className="block text-gray-300 mb-2 font-medium">
-                                                Email{" "}
-                                                <span className="text-red-500">
-                                                    *
-                                                </span>
-                                            </label>
-                                            <input
-                                                type="email"
-                                                name="email"
-                                                value={formData.email}
-                                                onChange={handleFormChange}
-                                                className={`w-full px-4 py-2 bg-black/50 border ${
-                                                    formErrors.email
-                                                        ? "border-red-500"
-                                                        : "border-amber-500/50"
-                                                } rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-amber-500`}
-                                                placeholder="Enter email address"
-                                            />
-                                            {formErrors.email && (
-                                                <p className="text-red-500 text-sm mt-1">
-                                                    {formErrors.email}
-                                                </p>
-                                            )}
-                                        </div>
-
-                                        {/* Phone */}
-                                        <div>
-                                            <label className="block text-gray-300 mb-2 font-medium">
-                                                Phone
-                                            </label>
-                                            <input
-                                                type="text"
-                                                name="phone"
-                                                value={formData.phone}
-                                                onChange={handleFormChange}
-                                                className={`w-full px-4 py-2 bg-black/50 border ${
-                                                    formErrors.phone
-                                                        ? "border-red-500"
-                                                        : "border-amber-500/50"
-                                                } rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-amber-500`}
-                                                placeholder="Enter phone number"
-                                            />
-                                            {formErrors.phone && (
-                                                <p className="text-red-500 text-sm mt-1">
-                                                    {formErrors.phone}
-                                                </p>
-                                            )}
-                                        </div>
-
-                                        {/* Role */}
-                                        <div>
-                                            <label className="block text-gray-300 mb-2 font-medium">
-                                                Role{" "}
-                                                <span className="text-red-500">
-                                                    *
-                                                </span>
-                                            </label>
-                                            <div className="relative">
-                                                <select
-                                                    name="role"
-                                                    value={formData.role}
-                                                    onChange={handleFormChange}
-                                                    className={`w-full pl-4 pr-10 py-2 bg-black/50 border ${
-                                                        formErrors.role
-                                                            ? "border-red-500"
-                                                            : "border-amber-500/50"
-                                                    } rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-amber-500 appearance-none`}
-                                                >
-                                                    <option value="">
-                                                        Select role
-                                                    </option>
-                                                    {roles.map((role) => (
-                                                        <option
-                                                            key={role}
-                                                            value={role}
-                                                        >
-                                                            {role}
-                                                        </option>
-                                                    ))}
-                                                </select>
-                                                <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3">
-                                                    <svg
-                                                        className="h-5 w-5 text-amber-500"
-                                                        xmlns="http://www.w3.org/2000/svg"
-                                                        viewBox="0 0 20 20"
-                                                        fill="currentColor"
-                                                    >
-                                                        <path
-                                                            fillRule="evenodd"
-                                                            d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
-                                                            clipRule="evenodd"
-                                                        />
-                                                    </svg>
-                                                </div>
-                                            </div>
-                                            {formErrors.role && (
-                                                <p className="text-red-500 text-sm mt-1">
-                                                    {formErrors.role}
-                                                </p>
-                                            )}
-                                        </div>
-
-                                        {/* Password */}
-                                        <div>
-                                            <label className="block text-gray-300 mb-2 font-medium">
-                                                Password{" "}
-                                                {!showEditModal && (
-                                                    <span className="text-red-500">
-                                                        *
-                                                    </span>
-                                                )}
-                                                {showEditModal && (
-                                                    <span className="text-gray-500 text-sm">
-                                                        (leave blank to keep
-                                                        current)
-                                                    </span>
-                                                )}
-                                            </label>
-                                            <input
-                                                type="password"
-                                                name="password"
-                                                value={formData.password}
-                                                onChange={handleFormChange}
-                                                className={`w-full px-4 py-2 bg-black/50 border ${
-                                                    formErrors.password
-                                                        ? "border-red-500"
-                                                        : "border-amber-500/50"
-                                                } rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-amber-500`}
-                                                placeholder="Enter password"
-                                            />
-                                            {formErrors.password && (
-                                                <p className="text-red-500 text-sm mt-1">
-                                                    {formErrors.password}
-                                                </p>
-                                            )}
-                                        </div>
-
-                                        {/* Password Confirmation */}
-                                        <div>
-                                            <label className="block text-gray-300 mb-2 font-medium">
-                                                Confirm Password{" "}
-                                                {!showEditModal && (
-                                                    <span className="text-red-500">
-                                                        *
-                                                    </span>
-                                                )}
-                                            </label>
-                                            <input
-                                                type="password"
-                                                name="password_confirmation"
-                                                value={
-                                                    formData.password_confirmation
-                                                }
-                                                onChange={handleFormChange}
-                                                className={`w-full px-4 py-2 bg-black/50 border ${
-                                                    formErrors.password_confirmation
-                                                        ? "border-red-500"
-                                                        : "border-amber-500/50"
-                                                } rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-amber-500`}
-                                                placeholder="Confirm password"
-                                            />
-                                            {formErrors.password_confirmation && (
-                                                <p className="text-red-500 text-sm mt-1">
-                                                    {
-                                                        formErrors.password_confirmation
-                                                    }
-                                                </p>
-                                            )}
-                                        </div>
-                                    </div>
-
-                                    {/* Active Status */}
-                                    <div className="flex items-center gap-3 p-4 bg-black/30 rounded-lg">
-                                        <input
-                                            type="checkbox"
-                                            name="is_active"
-                                            checked={formData.is_active}
-                                            onChange={handleFormChange}
-                                            className="w-5 h-5 text-amber-500 bg-black/50 border-amber-500/50 rounded focus:ring-amber-500"
-                                        />
-                                        <label className="text-gray-300 font-medium">
-                                            Active User
-                                        </label>
-                                    </div>
-
-                                    {/* Form Actions */}
-                                    <div className="flex gap-4 justify-end pt-4 border-t border-amber-500/30">
-                                        <button
-                                            type="button"
-                                            onClick={closeModal}
-                                            className="px-6 py-2 bg-gray-700 text-white rounded-lg hover:bg-gray-600 transition"
-                                        >
-                                            Cancel
-                                        </button>
-                                        <button
-                                            type="submit"
-                                            className="px-6 py-2 bg-amber-500 text-black font-semibold rounded-lg hover:bg-amber-600 transition"
-                                        >
-                                            {showEditModal
-                                                ? "Update User"
-                                                : "Create User"}
-                                        </button>
-                                    </div>
-                                </form>
-                            </motion.div>
-                        </motion.div>
-                    )}
-                </AnimatePresence>
+                            </form>
+                        </div>
+                    </div>
+                )}
             </DashboardLayout>
         </>
     );
