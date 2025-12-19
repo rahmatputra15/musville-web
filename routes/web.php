@@ -8,6 +8,8 @@ use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\ProjectController as AdminProjectController;
 use App\Http\Controllers\Admin\BannerHeroController;
 use App\Http\Controllers\Admin\BannerPageController;
+use App\Http\Controllers\Admin\StatementController;
+use App\Http\Controllers\Admin\ProfileController;
 
 Route::get('/', function () {
     return Inertia::render('Users/Home');
@@ -90,5 +92,16 @@ Route::middleware(['auth', 'role:super-admin|admin|editor'])->prefix('admin')->g
             Route::put('/{bannerPage}', [BannerPageController::class, 'update'])->name('admin.banner.page.update');
             Route::delete('/{bannerPage}', [BannerPageController::class, 'destroy'])->name('admin.banner.page.destroy');
         });
+    });
+
+    // About Us Management
+    Route::prefix('about-us')->group(function () {
+        // Statement
+        Route::get('/statement', [StatementController::class, 'index'])->name('admin.about-us.statement.index');
+        Route::post('/statement', [StatementController::class, 'update'])->name('admin.about-us.statement.update');
+
+        // Profile
+        Route::get('/profile', [ProfileController::class, 'index'])->name('admin.about-us.profile.index');
+        Route::post('/profile', [ProfileController::class, 'update'])->name('admin.about-us.profile.update');
     });
 });
