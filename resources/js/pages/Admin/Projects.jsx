@@ -582,15 +582,15 @@ const Projects = () => {
                         onClick={closeModal}
                     >
                         <div
-                            className="bg-gray-900 border border-amber-500/30 rounded-lg shadow-2xl w-full max-w-2xl max-h-[90vh] overflow-y-auto"
+                            className="bg-gray-900 rounded-lg max-w-2xl w-full max-h-[90vh] overflow-hidden border border-amber-500/30 shadow-2xl"
                             onClick={(e) => e.stopPropagation()}
                         >
                             {/* Modal Header */}
-                            <div className="sticky top-0 bg-gray-900 border-b border-amber-500/30 px-6 py-4 flex justify-between items-center">
-                                <h2 className="text-2xl font-bold text-amber-400">
+                            <div className="bg-linear-to-r from-amber-500/10 to-amber-600/10 border-b border-amber-500/30 px-6 py-4 flex items-center justify-between">
+                                <h2 className="text-xl font-bold text-amber-400">
                                     {projectToEdit
                                         ? "Edit Project"
-                                        : "Create New Project"}
+                                        : "Create Project"}
                                 </h2>
                                 <button
                                     onClick={closeModal}
@@ -611,11 +611,11 @@ const Projects = () => {
                             </div>
 
                             {/* Modal Body */}
-                            <form onSubmit={handleSubmit} className="p-6">
-                                <div className="space-y-6">
+                            <form onSubmit={handleSubmit}>
+                                <div className="p-6 space-y-4 max-h-[calc(90vh-140px)] overflow-y-auto scrollbar-thin">
                                     {/* Project Name */}
                                     <div>
-                                        <label className="block text-gray-300 mb-2 font-medium">
+                                        <label className="block text-sm font-medium text-gray-300 mb-2">
                                             Project Name{" "}
                                             <span className="text-red-500">
                                                 *
@@ -643,7 +643,7 @@ const Projects = () => {
                                     <div className="grid grid-cols-2 gap-4">
                                         {/* Total Unit */}
                                         <div>
-                                            <label className="block text-gray-300 mb-2 font-medium">
+                                            <label className="block text-sm font-medium text-gray-300 mb-2">
                                                 Total Unit{" "}
                                                 <span className="text-red-500">
                                                     *
@@ -671,7 +671,7 @@ const Projects = () => {
 
                                         {/* Unit Sold */}
                                         <div>
-                                            <label className="block text-gray-300 mb-2 font-medium">
+                                            <label className="block text-sm font-medium text-gray-300 mb-2">
                                                 Unit Sold{" "}
                                                 <span className="text-red-500">
                                                     *
@@ -700,7 +700,7 @@ const Projects = () => {
 
                                     {/* Status */}
                                     <div>
-                                        <label className="block text-gray-300 mb-2 font-medium">
+                                        <label className="block text-sm font-medium text-gray-300 mb-2">
                                             Status{" "}
                                             <span className="text-red-500">
                                                 *
@@ -786,21 +786,19 @@ const Projects = () => {
                                 </div>
 
                                 {/* Modal Footer */}
-                                <div className="flex gap-4 mt-8">
+                                <div className="bg-black/30 border-t border-amber-500/30 px-6 py-4 flex items-center justify-end gap-3">
                                     <button
                                         type="button"
                                         onClick={closeModal}
-                                        className="flex-1 px-6 py-3 bg-gray-800 text-white rounded-lg font-semibold hover:bg-gray-700 transition-colors"
+                                        className="px-6 py-2 bg-gray-700 text-white rounded-lg font-medium hover:bg-gray-600 transition-colors"
                                     >
                                         Cancel
                                     </button>
                                     <button
                                         type="submit"
-                                        className="flex-1 px-6 py-3 bg-linear-to-r from-amber-500 to-amber-600 text-white rounded-lg font-semibold hover:from-amber-600 hover:to-amber-700 transition-all shadow-lg hover:shadow-amber-500/50"
+                                        className="px-6 py-2 bg-linear-to-r from-amber-500 to-amber-600 text-white rounded-lg font-medium hover:from-amber-600 hover:to-amber-700 transition-all"
                                     >
-                                        {projectToEdit
-                                            ? "Update Project"
-                                            : "Create Project"}
+                                        {projectToEdit ? "Update" : "Create"}
                                     </button>
                                 </div>
                             </form>

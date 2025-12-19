@@ -6,6 +6,8 @@ use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\ProjectController as AdminProjectController;
+use App\Http\Controllers\Admin\BannerHeroController;
+use App\Http\Controllers\Admin\BannerPageController;
 
 Route::get('/', function () {
     return Inertia::render('Users/Home');
@@ -69,5 +71,24 @@ Route::middleware(['auth', 'role:super-admin|admin|editor'])->prefix('admin')->g
         // Project Videos
         Route::post('/{project}/videos', [AdminProjectController::class, 'storeVideo'])->name('admin.projects.videos.store');
         Route::delete('/{project}/videos/{video}', [AdminProjectController::class, 'destroyVideo'])->name('admin.projects.videos.destroy');
+    });
+
+    // Banner Management
+    Route::prefix('banner')->group(function () {
+        // Banner Hero
+        Route::prefix('hero')->group(function () {
+            Route::get('/', [BannerHeroController::class, 'index'])->name('admin.banner.hero.index');
+            Route::post('/', [BannerHeroController::class, 'store'])->name('admin.banner.hero.store');
+            Route::put('/{bannerHero}', [BannerHeroController::class, 'update'])->name('admin.banner.hero.update');
+            Route::delete('/{bannerHero}', [BannerHeroController::class, 'destroy'])->name('admin.banner.hero.destroy');
+        });
+
+        // Banner Page
+        Route::prefix('page')->group(function () {
+            Route::get('/', [BannerPageController::class, 'index'])->name('admin.banner.page.index');
+            Route::post('/', [BannerPageController::class, 'store'])->name('admin.banner.page.store');
+            Route::put('/{bannerPage}', [BannerPageController::class, 'update'])->name('admin.banner.page.update');
+            Route::delete('/{bannerPage}', [BannerPageController::class, 'destroy'])->name('admin.banner.page.destroy');
+        });
     });
 });

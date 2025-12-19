@@ -1,4 +1,5 @@
 import { Link } from "@inertiajs/react";
+import { useState, useEffect } from "react";
 
 const Sidebar = ({
     activePage,
@@ -6,6 +7,11 @@ const Sidebar = ({
     mobileMenuOpen,
     setMobileMenuOpen,
 }) => {
+    const [openDropdown, setOpenDropdown] = useState(null);
+
+    const toggleDropdown = (name) => {
+        setOpenDropdown(openDropdown === name ? null : name);
+    };
     const menuItems = [
         {
             name: "Dashboard",
@@ -46,6 +52,35 @@ const Sidebar = ({
                     />
                 </svg>
             ),
+        },
+        {
+            name: "Banner",
+            icon: (
+                <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    strokeWidth={1.5}
+                    stroke="currentColor"
+                    className="w-6 h-6"
+                >
+                    <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        d="M2.25 15.75l5.159-5.159a2.25 2.25 0 013.182 0l5.159 5.159m-1.5-1.5l1.409-1.409a2.25 2.25 0 013.182 0l2.909 2.909m-18 3.75h16.5a1.5 1.5 0 001.5-1.5V6a1.5 1.5 0 00-1.5-1.5H3.75A1.5 1.5 0 002.25 6v12a1.5 1.5 0 001.5 1.5zm10.5-11.25h.008v.008h-.008V8.25zm.375 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z"
+                    />
+                </svg>
+            ),
+            submenu: [
+                {
+                    name: "Hero",
+                    href: "/admin/banner/hero",
+                },
+                {
+                    name: "Banner Page",
+                    href: "/admin/banner/page",
+                },
+            ],
         },
         {
             name: "Users",
@@ -94,6 +129,20 @@ const Sidebar = ({
         },
     ];
 
+    // Auto-open dropdown if child page is active
+    useEffect(() => {
+        menuItems.forEach((item) => {
+            if (item.submenu) {
+                const isChildActive = item.submenu.some(
+                    (sub) => activePage === sub.href
+                );
+                if (isChildActive) {
+                    setOpenDropdown(item.name);
+                }
+            }
+        });
+    }, [activePage]);
+
     return (
         <aside
             className={`fixed left-0 top-0 h-screen bg-gray-900 border-r border-amber-500/30 shadow-2xl shadow-amber-500/10 z-40 transition-all duration-300 lg:block ${
@@ -133,34 +182,133 @@ const Sidebar = ({
                 <nav className="flex-1 overflow-y-auto p-4">
                     <ul className="space-y-2">
                         {menuItems.map((item) => {
-                            const isActive = activePage === item.href;
-                            return (
-                                <li key={item.name}>
-                                    <Link
-                                        href={item.href}
-                                        className={`flex items-center gap-3 px-4 py-3 rounded-lg transition-all group ${
-                                            isActive
-                                                ? "bg-amber-500 text-black"
-                                                : "text-gray-300 hover:bg-gray-800 hover:text-amber-400"
-                                        }`}
-                                    >
-                                        <span
-                                            className={
-                                                isActive
-                                                    ? "text-black"
-                                                    : "text-gray-400 group-hover:text-amber-400"
+                            if (item.submenu) {
+                                const isOpen = openDropdown === item.name;
+                                const isSubmenuActive = item.submenu.some(
+                                    (sub) => activePage === sub.href
+                                );
+                                return (
+                                    <li key={item.name}>
+                                        <button
+                                            onClick={() =>
+                                                toggleDropdown(item.name)
                                             }
+                                            className={`w-full flex items-center justify-between gap-3 px-4 py-3 rounded-lg transition-all group cursor-pointer ${
+                                                isSubmenuActive
+                                                    ? "bg-amber-500 text-black"
+                                                    : "text-gray-300 hover:bg-gray-800 hover:text-amber-400"
+                                            }`}
                                         >
-                                            {item.icon}
-                                        </span>
-                                        {!isCollapsed && (
-                                            <span className="font-medium">
-                                                {item.name}
-                                            </span>
+                                            <div className="flex items-center gap-3">
+                                                <span
+                                                    className={
+                                                        isSubmenuActive
+                                                            ? "text-black"
+                                                            : "text-gray-400 group-hover:text-amber-400"
+                                                    }
+                                                >
+                                                    {item.icon}
+                                                </span>
+                                                {!isCollapsed && (
+                                                    <span className="font-medium">
+                                                        {item.name}
+                                                    </span>
+                                                )}
+                                            </div>
+                                            {!isCollapsed && (
+                                                <svg
+                                                    xmlns="http://www.w3.org/2000/svg"
+                                                    fill="none"
+                                                    viewBox="0 0 24 24"
+                                                    strokeWidth={2}
+                                                    stroke="currentColor"
+                                                    className={`w-4 h-4 transition-transform ${
+                                                        isOpen
+                                                            ? "rotate-180"
+                                                            : ""
+                                                    }`}
+                                                >
+                                                    <path
+                                                        strokeLinecap="round"
+                                                        strokeLinejoin="round"
+                                                        d="M19.5 8.25l-7.5 7.5-7.5-7.5"
+                                                    />
+                                                </svg>
+                                            )}
+                                        </button>
+                                        {!isCollapsed && isOpen && (
+                                            <ul className="mt-1 ml-4 space-y-1">
+                                                {item.submenu.map((subitem) => {
+                                                    const isActive =
+                                                        activePage ===
+                                                        subitem.href;
+                                                    return (
+                                                        <li key={subitem.name}>
+                                                            <Link
+                                                                href={
+                                                                    subitem.href
+                                                                }
+                                                                className={`flex items-center gap-3 px-4 py-2 rounded-lg transition-all text-sm ${
+                                                                    isActive
+                                                                        ? "bg-amber-400/20 text-amber-400 font-medium border border-amber-500/30"
+                                                                        : "text-gray-400 hover:bg-gray-800 hover:text-amber-400"
+                                                                }`}
+                                                            >
+                                                                <span className="relative flex items-center justify-center">
+                                                                    <span
+                                                                        className={`w-2 h-2 rounded-full ${
+                                                                            isActive
+                                                                                ? "bg-amber-400"
+                                                                                : "bg-amber-500"
+                                                                        }`}
+                                                                    ></span>
+                                                                    <span
+                                                                        className={`absolute w-2 h-2 rounded-full ${
+                                                                            isActive
+                                                                                ? "bg-amber-400"
+                                                                                : "bg-amber-500"
+                                                                        } opacity-50 animate-ping`}
+                                                                    ></span>
+                                                                </span>
+                                                                {subitem.name}
+                                                            </Link>
+                                                        </li>
+                                                    );
+                                                })}
+                                            </ul>
                                         )}
-                                    </Link>
-                                </li>
-                            );
+                                    </li>
+                                );
+                            } else {
+                                const isActive = activePage === item.href;
+                                return (
+                                    <li key={item.name}>
+                                        <Link
+                                            href={item.href}
+                                            className={`flex items-center gap-3 px-4 py-3 rounded-lg transition-all group ${
+                                                isActive
+                                                    ? "bg-amber-500 text-black"
+                                                    : "text-gray-300 hover:bg-gray-800 hover:text-amber-400"
+                                            }`}
+                                        >
+                                            <span
+                                                className={
+                                                    isActive
+                                                        ? "text-black"
+                                                        : "text-gray-400 group-hover:text-amber-400"
+                                                }
+                                            >
+                                                {item.icon}
+                                            </span>
+                                            {!isCollapsed && (
+                                                <span className="font-medium">
+                                                    {item.name}
+                                                </span>
+                                            )}
+                                        </Link>
+                                    </li>
+                                );
+                            }
                         })}
                     </ul>
                 </nav>
