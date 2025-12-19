@@ -10,6 +10,11 @@ use App\Http\Controllers\Admin\BannerHeroController;
 use App\Http\Controllers\Admin\BannerPageController;
 use App\Http\Controllers\Admin\StatementController;
 use App\Http\Controllers\Admin\ProfileController;
+use App\Http\Controllers\Admin\CompanyGoalController;
+use App\Http\Controllers\Admin\JourneyController;
+use App\Http\Controllers\Admin\PartnershipController;
+use App\Http\Controllers\Admin\CommitmentController;
+use App\Http\Controllers\Admin\ContactController;
 
 Route::get('/', function () {
     return Inertia::render('Users/Home');
@@ -44,8 +49,28 @@ Route::post('/logout', [LoginController::class, 'destroy'])
 // Admin Routes (Protected)
 Route::middleware(['auth', 'role:super-admin|admin|editor'])->prefix('admin')->group(function () {
     Route::get('/dashboard', function () {
+        $stats = [
+            'projects' => \App\Models\Project::count(),
+            'users' => \App\Models\User::count(),
+            'bannerHeroes' => \App\Models\BannerHero::count(),
+            'bannerPages' => \App\Models\BannerPage::count(),
+            'partnerships' => \App\Models\Partnership::count(),
+            'commitments' => \App\Models\Commitment::count(),
+            'goals' => \App\Models\CompanyGoal::count(),
+            'journeys' => \App\Models\Journey::count(),
+            'availableProjects' => \App\Models\Project::where('status', 'available')->count(),
+            'soldProjects' => \App\Models\Project::where('status', 'sold')->count(),
+            'comingSoonProjects' => \App\Models\Project::where('status', 'coming_soon')->count(),
+        ];
+
+        $recentProjects = \App\Models\Project::latest()
+            ->take(5)
+            ->get(['id', 'name', 'slug', 'status', 'banner', 'created_at']);
+
         return Inertia::render('Admin/Dashboard', [
             'user' => auth()->user()->load('roles', 'permissions'),
+            'stats' => $stats,
+            'recentProjects' => $recentProjects,
         ]);
     })->name('dashboard');
 
@@ -103,5 +128,36 @@ Route::middleware(['auth', 'role:super-admin|admin|editor'])->prefix('admin')->g
         // Profile
         Route::get('/profile', [ProfileController::class, 'index'])->name('admin.about-us.profile.index');
         Route::post('/profile', [ProfileController::class, 'update'])->name('admin.about-us.profile.update');
+
+        // Goals
+        Route::get('/goals', [CompanyGoalController::class, 'index'])->name('admin.about-us.goals.index');
+        Route::post('/goals', [CompanyGoalController::class, 'store'])->name('admin.about-us.goals.store');
+        Route::put('/goals/{goal}', [CompanyGoalController::class, 'update'])->name('admin.about-us.goals.update');
+        Route::delete('/goals/{goal}', [CompanyGoalController::class, 'destroy'])->name('admin.about-us.goals.destroy');
+
+        // Journeys
+        Route::get('/journeys', [JourneyController::class, 'index'])->name('admin.about-us.journeys.index');
+        Route::post('/journeys', [JourneyController::class, 'store'])->name('admin.about-us.journeys.store');
+        Route::put('/journeys/{journey}', [JourneyController::class, 'update'])->name('admin.about-us.journeys.update');
+        Route::delete('/journeys/{journey}', [JourneyController::class, 'destroy'])->name('admin.about-us.journeys.destroy');
     });
+
+    // Partnership Management
+    Route::prefix('partnership')->group(function () {
+        // Programs
+        Route::get('/programs', [PartnershipController::class, 'index'])->name('admin.partnership.programs.index');
+        Route::post('/programs', [PartnershipController::class, 'store'])->name('admin.partnership.programs.store');
+        Route::put('/programs/{partnership}', [PartnershipController::class, 'update'])->name('admin.partnership.programs.update');
+        Route::delete('/programs/{partnership}', [PartnershipController::class, 'destroy'])->name('admin.partnership.programs.destroy');
+
+        // Commitment
+        Route::get('/commitment', [CommitmentController::class, 'index'])->name('admin.partnership.commitment.index');
+        Route::post('/commitment', [CommitmentController::class, 'store'])->name('admin.partnership.commitment.store');
+        Route::put('/commitment/{commitment}', [CommitmentController::class, 'update'])->name('admin.partnership.commitment.update');
+        Route::delete('/commitment/{commitment}', [CommitmentController::class, 'destroy'])->name('admin.partnership.commitment.destroy');
+    });
+
+    // Contact Management
+    Route::get('/contact', [ContactController::class, 'index'])->name('admin.contact.index');
+    Route::post('/contact', [ContactController::class, 'update'])->name('admin.contact.update');
 });

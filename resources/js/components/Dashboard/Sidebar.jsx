@@ -114,10 +114,59 @@ const Sidebar = ({
                     href: "/admin/about-us/goals",
                 },
                 {
-                    name: "Journey",
-                    href: "/admin/about-us/journey",
+                    name: "Journeys",
+                    href: "/admin/about-us/journeys",
                 },
             ],
+        },
+        {
+            name: "Partnership",
+            icon: (
+                <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    strokeWidth={1.5}
+                    stroke="currentColor"
+                    className="w-6 h-6"
+                >
+                    <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        d="M7.5 21L3 16.5m0 0L7.5 12M3 16.5h13.5m0-13.5L21 7.5m0 0L16.5 12M21 7.5H7.5"
+                    />
+                </svg>
+            ),
+            submenu: [
+                {
+                    name: "Programs",
+                    href: "/admin/partnership/programs",
+                },
+                {
+                    name: "Commitment",
+                    href: "/admin/partnership/commitment",
+                },
+            ],
+        },
+        {
+            name: "Contact",
+            href: "/admin/contact",
+            icon: (
+                <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    strokeWidth={1.5}
+                    stroke="currentColor"
+                    className="w-6 h-6"
+                >
+                    <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        d="M21.75 6.75v10.5a2.25 2.25 0 01-2.25 2.25h-15a2.25 2.25 0 01-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25m19.5 0v.243a2.25 2.25 0 01-1.07 1.916l-7.5 4.615a2.25 2.25 0 01-2.36 0L3.32 8.91a2.25 2.25 0 01-1.07-1.916V6.75"
+                    />
+                </svg>
+            ),
         },
         {
             name: "Users",
