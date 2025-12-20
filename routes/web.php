@@ -2,7 +2,6 @@
 
 use Inertia\Inertia;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\ProjectController as AdminProjectController;
@@ -15,25 +14,22 @@ use App\Http\Controllers\Admin\JourneyController;
 use App\Http\Controllers\Admin\PartnershipController;
 use App\Http\Controllers\Admin\CommitmentController;
 use App\Http\Controllers\Admin\ContactController;
+use App\Http\Controllers\Users\AboutUsController;
+use App\Http\Controllers\Users\ContactController as UsersContactController;
+use App\Http\Controllers\Users\HomeController;
+use App\Http\Controllers\Users\PartnershipController as UsersPartnershipController;
+use App\Http\Controllers\Users\ProjectController;
 
-Route::get('/', function () {
-    return Inertia::render('Users/Home');
-});
+Route::get('/', HomeController::class);
 
 Route::get('/projects', [ProjectController::class, 'index'])->name('projects');
 Route::get('/projects/{slug}', [ProjectController::class, 'show'])->name('projects.detail');
 
-Route::get('/about', function () {
-    return Inertia::render('Users/AboutUs');
-})->name('about');
+Route::get('/about', [AboutUsController::class, 'index'])->name('about');
 
-Route::get('/partnership', function () {
-    return Inertia::render('Users/Partnership');
-})->name('partnership');
+Route::get('/partnership', [UsersPartnershipController::class, 'index'])->name('partnership');
 
-Route::get('/contact', function () {
-    return Inertia::render('Users/Contact');
-})->name('contact');
+Route::get('/contact', [UsersContactController::class, 'index'])->name('contact');
 
 // Authentication Routes
 Route::middleware('guest')->group(function () {

@@ -2,50 +2,24 @@ import { Head } from "@inertiajs/react";
 import { motion } from "framer-motion";
 import UsersLayout from "../../components/Users/UsersLayout";
 
-const AboutUs = () => {
-    const timeline = [
-        {
-            year: "2023",
-            events: [
-                "Mendirikan PT. Madani Utama Celebes",
-                "Membuat izin perumahan",
-                'Mendaftarkan merk dagang "MUSVILLE"',
-            ],
-        },
-        {
-            year: "2024",
-            events: [
-                'Membangun perumahan syari\'ah pertama, "Musville Residence Baliase" dan SOLD OUT dalam 3 bulan',
-                'Persiapan Project kedua "Musville SkyView"',
-            ],
-        },
-        {
-            year: "2025",
-            events: [
-                "Pembangunan Project Kedua, Musville SkyView",
-                "Persiapan Project Ketiga",
-            ],
-        },
-    ];
+const AboutUs = ({ banner, statement, profile, goals, journeys }) => {
+    const timeline = journeys.map((journey) => ({
+        year: journey.year,
+        events: [journey.description],
+    }));
 
     const profiles = [
         {
             title: "Our History",
-            content:
-                "PT Madani Utama Selebes didirikan pada tanggal 29 Juli 2023 yang bergerak di bidang Real Estate, Konstruksi, dan Pengembangan Area Wisata. Berawal dari CV. Langit Karya Tadulako yang telah beroperasi sejak 2017 dalam Agency Real Estate.",
+            content: profile.our_story,
         },
         {
             title: "Core Business",
-            items: [
-                "Real Estate Development",
-                "Construction (Residential & Civil Infrastructure)",
-                "Tourism Area Development",
-            ],
+            content: profile.core_business,
         },
         {
             title: "Our Commitment",
-            content:
-                "Mengembangkan properti berbasis syariah dengan kualitas terbaik dan memberikan manfaat bagi masyarakat",
+            content: profile.our_commitment,
         },
     ];
 
@@ -73,7 +47,11 @@ const AboutUs = () => {
                 <section className="relative h-80 w-full overflow-hidden">
                     <div className="absolute inset-0 bg-linear-to-r from-black/70 to-black/50 z-10"></div>
                     <img
-                        src="https://images.unsplash.com/photo-1577415124269-fc1140a69e91?w=1920&h=600&fit=crop"
+                        src={
+                            banner
+                                ? "storage/" + banner.image
+                                : "https://images.unsplash.com/photo-1577415124269-fc1140a69e91?w=1920&h=600&fit=crop"
+                        }
                         alt="About Us Banner"
                         className="absolute inset-0 w-full h-full object-cover"
                     />
@@ -85,10 +63,12 @@ const AboutUs = () => {
                             className="text-center px-4"
                         >
                             <h1 className="mt-10 text-5xl md:text-6xl font-bold text-white mb-4 drop-shadow-lg">
-                                About Us
+                                {banner ? banner.title : "About Us"}
                             </h1>
                             <p className="text-gray-200 text-lg md:text-xl max-w-2xl mx-auto drop-shadow">
-                                Building dreams, creating value
+                                {banner
+                                    ? banner.subtitle
+                                    : "Building dreams, creating value together"}
                             </p>
                         </motion.div>
                     </div>
@@ -124,8 +104,11 @@ const AboutUs = () => {
                                     className="w-32 h-32 rounded-full bg-linear-to-br from-amber-500 to-yellow-600 shrink-0 overflow-hidden border-4 border-amber-500"
                                 >
                                     <img
-                                        src="/assets/images/profil.jpeg"
-                                        alt="Muhammad Arief Mustafa"
+                                        src={
+                                            statement.image_url ||
+                                            "/assets/images/profil.jpeg"
+                                        }
+                                        alt={statement.name || "CEO"}
                                         className="w-full h-full object-cover"
                                     />
                                 </motion.div>
@@ -136,18 +119,14 @@ const AboutUs = () => {
                                     transition={{ duration: 0.6, delay: 0.4 }}
                                 >
                                     <p className="text-gray-300 text-lg italic mb-6">
-                                        "Sebaik-baik manusia ialah yang
-                                        bermanfaat bagi yang lainnya. Begitupula
-                                        Perusahaan, bisnis mana yang paling
-                                        banyak memberi manfaat, itulah yang akan
-                                        terus bertumbuh"
+                                        {statement.statement}
                                     </p>
                                     <div>
                                         <p className="font-semibold text-amber-500">
-                                            Muhammad Arief Mustafa
+                                            {statement.name}
                                         </p>
                                         <p className="text-gray-400">
-                                            Direktur Utama PT. MUS
+                                            {statement.position}
                                         </p>
                                     </div>
                                 </motion.div>
@@ -220,17 +199,22 @@ const AboutUs = () => {
                                     <h3 className="text-xl font-semibold text-amber-500 mb-4">
                                         {profile.title}
                                     </h3>
-                                    {profile.content ? (
-                                        <p className="text-gray-300">
-                                            {profile.content}
-                                        </p>
-                                    ) : (
-                                        <ul className="text-gray-300 space-y-2">
-                                            {profile.items.map((item, idx) => (
-                                                <li key={idx}>• {item}</li>
-                                            ))}
-                                        </ul>
-                                    )}
+                                    <div
+                                        className="text-gray-300"
+                                        dangerouslySetInnerHTML={{
+                                            __html: profile.content
+                                                ? profile.content
+                                                      .replace(
+                                                          /<ul(.*?)>/gi,
+                                                          '<ul class="list-disc pl-5"$1>'
+                                                      )
+                                                      .replace(
+                                                          /<ol(.*?)>/gi,
+                                                          '<ol class="list-decimal pl-5"$1>'
+                                                      )
+                                                : "",
+                                        }}
+                                    />
                                 </motion.div>
                             ))}
                         </div>
@@ -255,80 +239,42 @@ const AboutUs = () => {
                             </p>
                         </motion.div>
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                            <motion.div
-                                initial={{ opacity: 0, x: -50 }}
-                                whileInView={{ opacity: 1, x: 0 }}
-                                viewport={{ once: true }}
-                                transition={{ duration: 0.6 }}
-                                className="bg-black/30 backdrop-blur-lg border border-white/20 rounded-lg p-8 hover:bg-black/40 transition"
-                            >
-                                <div className="flex items-center gap-4 mb-4">
-                                    <svg
-                                        xmlns="http://www.w3.org/2000/svg"
-                                        className="h-14 w-14 text-amber-200"
-                                        fill="none"
-                                        viewBox="0 0 24 24"
-                                        stroke="currentColor"
-                                    >
-                                        <path
-                                            strokeLinecap="round"
-                                            strokeLinejoin="round"
-                                            strokeWidth={2}
-                                            d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"
-                                        />
-                                    </svg>
-                                    <div className="text-5xl font-bold text-amber-200">
-                                        2030
+                            {goals.map((goal, index) => (
+                                <motion.div
+                                    key={index}
+                                    initial={{ opacity: 0, x: -50 }}
+                                    whileInView={{ opacity: 1, x: 0 }}
+                                    viewport={{ once: true }}
+                                    transition={{ duration: 0.6 }}
+                                    className="bg-black/30 backdrop-blur-lg border border-white/20 rounded-lg p-8 hover:bg-black/40 transition"
+                                >
+                                    <div className="flex items-center gap-4 mb-4">
+                                        <svg
+                                            xmlns="http://www.w3.org/2000/svg"
+                                            className="h-14 w-14 text-amber-200"
+                                            fill="none"
+                                            viewBox="0 0 24 24"
+                                            stroke="currentColor"
+                                        >
+                                            <path
+                                                strokeLinecap="round"
+                                                strokeLinejoin="round"
+                                                strokeWidth={2}
+                                                d={goal.icon}
+                                            />
+                                        </svg>
+                                        <div className="text-5xl font-bold text-amber-200">
+                                            {goal.title}
+                                        </div>
                                     </div>
-                                </div>
-                                <h3 className="text-2xl font-semibold mb-3">
-                                    Vision
-                                </h3>
-                                <p className="text-amber-100">
-                                    Menjadi Developer Perumahan Syariah terbaik
-                                    di Indonesia
-                                </p>
-                            </motion.div>
-                            <motion.div
-                                initial={{ opacity: 0, x: 50 }}
-                                whileInView={{ opacity: 1, x: 0 }}
-                                viewport={{ once: true }}
-                                transition={{ duration: 0.6 }}
-                                className="bg-black/30 backdrop-blur-lg border border-white/20 rounded-lg p-8 hover:bg-black/40 transition"
-                            >
-                                <div className="flex items-center gap-4 mb-4">
-                                    <svg
-                                        xmlns="http://www.w3.org/2000/svg"
-                                        className="h-14 w-14 text-amber-200"
-                                        fill="none"
-                                        viewBox="0 0 24 24"
-                                        stroke="currentColor"
-                                    >
-                                        <path
-                                            strokeLinecap="round"
-                                            strokeLinejoin="round"
-                                            strokeWidth={2}
-                                            d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"
-                                        />
-                                        <path
-                                            strokeLinecap="round"
-                                            strokeLinejoin="round"
-                                            strokeWidth={2}
-                                            d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"
-                                        />
-                                    </svg>
-                                    <div className="text-5xl font-bold text-amber-200">
-                                        2050
-                                    </div>
-                                </div>
-                                <h3 className="text-2xl font-semibold mb-3">
-                                    Vision
-                                </h3>
-                                <p className="text-amber-100">
-                                    Menjadi Ikonik Wisata Islami dan Resort
-                                    Syariah terbesar di Indonesia
-                                </p>
-                            </motion.div>
+                                    <h3 className="text-2xl font-semibold mb-3">
+                                        Vision
+                                    </h3>
+                                    <p className="text-amber-100">
+                                        {goal.description}
+                                    </p>
+                                </motion.div>
+                            ))}
                         </div>
                     </div>
                 </section>
@@ -375,16 +321,22 @@ const AboutUs = () => {
                                         <h3 className="text-xl font-semibold text-amber-500 mb-3">
                                             {item.year}
                                         </h3>
-                                        <ul className="space-y-2">
-                                            {item.events.map((event, idx) => (
-                                                <li
-                                                    key={idx}
-                                                    className="text-gray-300"
-                                                >
-                                                    • {event}
-                                                </li>
-                                            ))}
-                                        </ul>
+                                        <div
+                                            className="text-gray-300"
+                                            dangerouslySetInnerHTML={{
+                                                __html: item.events[0]
+                                                    ? item.events[0]
+                                                          .replace(
+                                                              /<ul(.*?)>/gi,
+                                                              '<ul class="list-disc pl-5"$1>'
+                                                          )
+                                                          .replace(
+                                                              /<ol(.*?)>/gi,
+                                                              '<ol class="list-decimal pl-5"$1>'
+                                                          )
+                                                    : "",
+                                            }}
+                                        />
                                     </div>
                                 </motion.div>
                             ))}

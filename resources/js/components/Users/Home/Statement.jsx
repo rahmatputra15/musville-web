@@ -1,6 +1,7 @@
 import { motion } from "framer-motion";
 
-const Statement = () => {
+const Statement = ({ statement }) => {
+    if (!statement) return null;
     return (
         <section className="py-16 bg-black">
             <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -31,8 +32,11 @@ const Statement = () => {
                             className="w-32 h-32 rounded-full bg-linear-to-br from-amber-500 to-yellow-600 shrink-0 overflow-hidden border-4 border-amber-500"
                         >
                             <img
-                                src="/assets/images/profil.jpeg"
-                                alt="Muhammad Arief Mustafa"
+                                src={
+                                    statement.image_url ||
+                                    "/assets/images/profil.jpeg"
+                                }
+                                alt={statement.name || "CEO"}
                                 className="w-full h-full object-cover"
                             />
                         </motion.div>
@@ -43,17 +47,14 @@ const Statement = () => {
                             transition={{ duration: 0.6, delay: 0.4 }}
                         >
                             <p className="text-gray-300 text-lg italic mb-6">
-                                "Sebaik-baik manusia ialah yang bermanfaat bagi
-                                yang lainnya. Begitupula Perusahaan, bisnis mana
-                                yang paling banyak memberi manfaat, itulah yang
-                                akan terus bertumbuh"
+                                {statement.statement}
                             </p>
                             <div>
                                 <p className="font-semibold text-amber-500">
-                                    Muhammad Arief Mustafa
+                                    {statement.name}
                                 </p>
                                 <p className="text-gray-400">
-                                    Direktur Utama PT. MUS
+                                    {statement.position}
                                 </p>
                             </div>
                         </motion.div>

@@ -7,29 +7,29 @@ use Illuminate\Database\Eloquent\Model;
 
 class Partnership extends Model
 {
-  use HasFactory;
+    use HasFactory;
 
-  /**
-   * The attributes that are mass assignable.
-   *
-   * @var array<int, string>
-   */
-  protected $fillable = [
-    'icon',
-    'title',
-    'subtitle',
-    'benefit',
-    'contact',
-    'status',
-  ];
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array<int, string>
+     */
+    protected $fillable = [
+        'icon',
+        'title',
+        'subtitle',
+        'benefit',
+        'contact',
+        'status',
+    ];
 
-  /**
-   * The attributes that should be cast.
-   *
-   * @var array<string, string>
-   */
-  protected $casts = [
-    'created_at' => 'datetime',
-    'updated_at' => 'datetime',
-  ];
+    /**
+     * The attributes that should be cast.
+     *
+     * @var array<string, string>
+     */
+    protected $casts = [
+        'created_at' => 'datetime',
+        'updated_at' => 'datetime',
+    ];
 }

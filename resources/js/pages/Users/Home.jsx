@@ -6,7 +6,15 @@ import Statement from "../../components/Users/Home/Statement";
 import CompanyProfile from "../../components/Users/Home/CompanyProfile";
 import Partnership from "../../components/Users/Home/Partnership";
 
-const Home = () => {
+const Home = ({
+    banners = [],
+    projects = [],
+    statement = null,
+    profile = null,
+    journeys = [],
+    goals = [],
+    partnerships = [],
+}) => {
     return (
         <>
             <Head title="Home - Musville">
@@ -33,11 +41,15 @@ const Home = () => {
             </Head>
 
             <UsersLayout activePage="home">
-                <Hero />
-                <Projects />
-                <Statement />
-                <CompanyProfile />
-                <Partnership />
+                <Hero banners={banners} />
+                <Projects projects={projects} />
+                <Statement statement={statement} />
+                <CompanyProfile
+                    profile={profile}
+                    journeys={journeys}
+                    companyGoals={goals}
+                />
+                <Partnership partnerships={partnerships} />
             </UsersLayout>
         </>
     );

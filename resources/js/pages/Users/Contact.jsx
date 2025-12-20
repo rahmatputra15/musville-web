@@ -2,7 +2,7 @@ import { Head } from "@inertiajs/react";
 import { motion } from "framer-motion";
 import UsersLayout from "../../components/Users/UsersLayout";
 
-const Contact = () => {
+const Contact = ({ contact, banner }) => {
     return (
         <>
             <Head title="Contact Us - Musville">
@@ -27,7 +27,11 @@ const Contact = () => {
                 <section className="relative h-80 w-full overflow-hidden">
                     <div className="absolute inset-0 bg-linear-to-r from-black/70 to-black/50 z-10"></div>
                     <img
-                        src="https://images.unsplash.com/photo-1423666639041-f56000c27a9a?w=1920&h=600&fit=crop"
+                        src={
+                            banner
+                                ? "storage/" + banner.image
+                                : "https://images.unsplash.com/photo-1423666639041-f56000c27a9a?w=1920&h=600&fit=crop"
+                        }
                         alt="Contact Banner"
                         className="absolute inset-0 w-full h-full object-cover"
                     />
@@ -39,10 +43,12 @@ const Contact = () => {
                             className="text-center px-4"
                         >
                             <h1 className="mt-10 text-5xl md:text-6xl font-bold text-white mb-4 drop-shadow-lg">
-                                Contact Us
+                                {banner ? banner.title : "Contact Us"}
                             </h1>
                             <p className="text-gray-200 text-lg md:text-xl max-w-2xl mx-auto drop-shadow">
-                                We'd love to hear from you
+                                {banner
+                                    ? banner.subtitle
+                                    : "We'd love to hear from you"}
                             </p>
                         </motion.div>
                     </div>
@@ -62,8 +68,7 @@ const Contact = () => {
                                     Get In Touch
                                 </h2>
                                 <p className="text-gray-400 mb-8">
-                                    Jalan Sis Al-Jufri, Palu, Indonesia, Central
-                                    Sulawesi
+                                    {contact.address || ""}
                                 </p>
                                 <div className="space-y-6">
                                     <motion.div
@@ -93,10 +98,12 @@ const Contact = () => {
                                                 Email
                                             </h3>
                                             <a
-                                                href="mailto:musvilleindonesia@gmail.com"
+                                                href={`mailto:${
+                                                    contact.email || ""
+                                                }`}
                                                 className="text-gray-300 hover:text-amber-500 transition"
                                             >
-                                                musvilleindonesia@gmail.com
+                                                {contact.email || ""}
                                             </a>
                                         </div>
                                     </motion.div>
@@ -128,12 +135,14 @@ const Contact = () => {
                                                 Phone / WhatsApp
                                             </h3>
                                             <a
-                                                href="https://wa.me/6287745933125"
+                                                href={`https://wa.me/${
+                                                    contact.phone || ""
+                                                }`}
                                                 target="_blank"
                                                 rel="noopener noreferrer"
                                                 className="text-gray-300 hover:text-emerald-500 transition"
                                             >
-                                                +62 877 4593 3125
+                                                {contact.phone || ""}
                                             </a>
                                         </div>
                                     </motion.div>
@@ -171,10 +180,7 @@ const Contact = () => {
                                                 Address
                                             </h3>
                                             <p className="text-gray-300">
-                                                Jalan Sis Al-Jufri, Palu,
-                                                Indonesia
-                                                <br />
-                                                Central Sulawesi
+                                                {contact.address || ""}
                                             </p>
                                         </div>
                                     </motion.div>
@@ -196,7 +202,7 @@ const Contact = () => {
                                 </p>
                                 <div className="space-y-4 mb-8">
                                     <motion.a
-                                        href="#"
+                                        href={`${contact.facebook || "#"}`}
                                         initial={{ opacity: 0, x: 20 }}
                                         animate={{ opacity: 1, x: 0 }}
                                         transition={{
@@ -219,13 +225,13 @@ const Contact = () => {
                                                 Facebook
                                             </h4>
                                             <p className="text-gray-400">
-                                                @Musville
+                                                Official Musville Facebook
                                             </p>
                                         </div>
                                     </motion.a>
 
                                     <motion.a
-                                        href="#"
+                                        href={`${contact.instagram || "#"}`}
                                         initial={{ opacity: 0, x: 20 }}
                                         animate={{ opacity: 1, x: 0 }}
                                         transition={{
@@ -248,7 +254,7 @@ const Contact = () => {
                                                 Instagram
                                             </h4>
                                             <p className="text-gray-400">
-                                                @Musville.id
+                                                Official Musville Instagram
                                             </p>
                                         </div>
                                     </motion.a>
@@ -267,19 +273,19 @@ const Contact = () => {
                                         <div className="flex justify-between">
                                             <span>Monday - Friday</span>
                                             <span className="text-amber-500">
-                                                09:00 - 17:00
+                                                {contact.monfri}
                                             </span>
                                         </div>
                                         <div className="flex justify-between">
                                             <span>Saturday</span>
                                             <span className="text-amber-500">
-                                                09:00 - 14:00
+                                                {contact.sat}
                                             </span>
                                         </div>
                                         <div className="flex justify-between">
                                             <span>Sunday</span>
                                             <span className="text-red-500">
-                                                Closed
+                                                {contact.sun}
                                             </span>
                                         </div>
                                     </div>

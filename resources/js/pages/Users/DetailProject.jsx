@@ -31,11 +31,11 @@ const DetailProject = ({ project }) => {
 
     const getStatusColor = (status) => {
         switch (status) {
-            case "Available":
+            case "available":
                 return "bg-green-500";
-            case "Sold Out":
+            case "sold out":
                 return "bg-red-500";
-            case "Coming Soon":
+            case "coming soon":
                 return "bg-yellow-500";
             default:
                 return "bg-gray-500";

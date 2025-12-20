@@ -1,31 +1,15 @@
 import { motion, AnimatePresence } from "framer-motion";
 import { useState, useEffect } from "react";
 
-const Hero = () => {
-    const images = [
-        {
-            url: "/assets/images/skyview.jpg",
-            alt: "Skyview Modern Building",
-        },
-        {
-            url: "/assets/images/baliase.jpg",
-            alt: "Baliase Modern Building",
-        },
-        {
-            url: "/assets/images/comming-soon.jpeg",
-            alt: "Coming Soon Modern Building",
-        },
-    ];
-
+const Hero = ({ banners = [] }) => {
     const [currentImage, setCurrentImage] = useState(0);
-
     useEffect(() => {
+        if (!banners.length) return;
         const interval = setInterval(() => {
-            setCurrentImage((prev) => (prev + 1) % images.length);
-        }, 5000); // Ganti gambar setiap 5 detik
-
+            setCurrentImage((prev) => (prev + 1) % banners.length);
+        }, 5000);
         return () => clearInterval(interval);
-    }, []);
+    }, [banners]);
 
     return (
         <section
@@ -46,11 +30,13 @@ const Hero = () => {
                         }}
                         className="absolute inset-0 w-full h-full"
                     >
-                        <img
-                            src={images[currentImage].url}
-                            alt={images[currentImage].alt}
-                            className="absolute w-full h-full object-cover"
-                        />
+                        {banners.length > 0 && (
+                            <img
+                                src={banners[currentImage].image_url}
+                                alt={banners[currentImage].title || "Banner"}
+                                className="absolute w-full h-full object-cover"
+                            />
+                        )}
                     </motion.div>
                 </AnimatePresence>
 
@@ -65,31 +51,38 @@ const Hero = () => {
             {/* Content */}
             <div className="relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
                 <div className="text-center">
-                    <motion.h1
-                        initial={{ opacity: 0, y: 30 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.8, delay: 0.2 }}
-                        className="text-5xl md:text-6xl font-bold text-amber-400 mb-6 drop-shadow-[0_0_20px_rgba(251,191,36,0.6)]"
-                    >
-                        PT. Madani Utama Selebes
-                    </motion.h1>
-                    <motion.p
-                        initial={{ opacity: 0, y: 30 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.8, delay: 0.4 }}
-                        className="text-xl md:text-2xl text-amber-200 mb-4 drop-shadow-lg"
-                    >
-                        The Best Shariah Development and Sustainable Company
-                    </motion.p>
-                    <motion.p
-                        initial={{ opacity: 0, y: 30 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.8, delay: 0.6 }}
-                        className="text-lg text-gray-300 max-w-3xl mx-auto drop-shadow-md"
-                    >
-                        Commercial Building, Resort & Elite Residential in
-                        Indonesia
-                    </motion.p>
+                    {banners.length > 0 && (
+                        <>
+                            <motion.h1
+                                initial={{ opacity: 0, y: 30 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                transition={{ duration: 0.8, delay: 0.2 }}
+                                className="text-5xl md:text-6xl font-bold text-amber-400 mb-6 drop-shadow-[0_0_20px_rgba(251,191,36,0.6)]"
+                            >
+                                {banners[currentImage].title}
+                            </motion.h1>
+                            {banners[currentImage].subtitle && (
+                                <motion.p
+                                    initial={{ opacity: 0, y: 30 }}
+                                    animate={{ opacity: 1, y: 0 }}
+                                    transition={{ duration: 0.8, delay: 0.4 }}
+                                    className="text-xl md:text-2xl text-amber-200 mb-4 drop-shadow-lg"
+                                >
+                                    {banners[currentImage].subtitle}
+                                </motion.p>
+                            )}
+                            {banners[currentImage].subsubtitle && (
+                                <motion.p
+                                    initial={{ opacity: 0, y: 30 }}
+                                    animate={{ opacity: 1, y: 0 }}
+                                    transition={{ duration: 0.8, delay: 0.6 }}
+                                    className="text-lg text-gray-300 max-w-3xl mx-auto drop-shadow-md"
+                                >
+                                    {banners[currentImage].subsubtitle}
+                                </motion.p>
+                            )}
+                        </>
+                    )}
                     <motion.div
                         initial={{ opacity: 0, y: 30 }}
                         animate={{ opacity: 1, y: 0 }}
