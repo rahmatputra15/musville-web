@@ -23,6 +23,9 @@ class Project extends Model
         'unit_sold',
         'status',
         'banner',
+        'overview',
+        'facilities',
+        'area',
     ];
 
     /**

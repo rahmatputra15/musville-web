@@ -42,6 +42,8 @@ const DetailProject = ({ project }) => {
         }
     };
 
+    console.log(project);
+
     return (
         <>
             <Head title={`${project.name} - Musville`}>
@@ -96,7 +98,7 @@ const DetailProject = ({ project }) => {
                                         clipRule="evenodd"
                                     />
                                 </svg>
-                                Back to Home
+                                Back to Projects
                             </Link>
                             <h1 className="text-5xl md:text-6xl font-bold text-white mb-4 drop-shadow-lg">
                                 {project.name}
@@ -339,6 +341,94 @@ const DetailProject = ({ project }) => {
                                 </span>
                             </div>
                         </motion.div>
+
+                        {/* Overview, Facilities, Area Cards */}
+                        <div className="mt-10 grid grid-cols-1 md:grid-cols-3 gap-8">
+                            {/* Overview Card */}
+                            <motion.div
+                                initial={{ opacity: 0, y: 30 }}
+                                whileInView={{ opacity: 1, y: 0 }}
+                                viewport={{ once: true }}
+                                transition={{ duration: 0.5, delay: 0.1 }}
+                                className="bg-linear-to-br from-amber-500/10 to-yellow-600/10 border border-amber-500/30 rounded-lg p-6 shadow-lg shadow-amber-500/10"
+                            >
+                                <h3 className="text-xl font-bold text-amber-500 mb-3 text-center">
+                                    Property Overview
+                                </h3>
+                                <div
+                                    className="text-gray-300 prose prose-invert max-w-none"
+                                    dangerouslySetInnerHTML={{
+                                        __html: project.overview
+                                            ? project.overview
+                                                  .replace(
+                                                      /<ul(.*?)>/gi,
+                                                      '<ul class="list-disc pl-5"$1>'
+                                                  )
+                                                  .replace(
+                                                      /<ol(.*?)>/gi,
+                                                      '<ol class="list-decimal pl-5"$1>'
+                                                  )
+                                            : "",
+                                    }}
+                                />
+                            </motion.div>
+                            {/* Facilities Card */}
+                            <motion.div
+                                initial={{ opacity: 0, y: 30 }}
+                                whileInView={{ opacity: 1, y: 0 }}
+                                viewport={{ once: true }}
+                                transition={{ duration: 0.5, delay: 0.2 }}
+                                className="bg-linear-to-br from-amber-500/10 to-yellow-600/10 border border-amber-500/30 rounded-lg p-6 shadow-lg shadow-amber-500/10"
+                            >
+                                <h3 className="text-xl font-bold text-amber-500 mb-3 text-center">
+                                    Nearby Facilities
+                                </h3>
+                                <div
+                                    className="text-gray-300 prose prose-invert max-w-none"
+                                    dangerouslySetInnerHTML={{
+                                        __html: project.facilities
+                                            ? project.facilities
+                                                  .replace(
+                                                      /<ul(.*?)>/gi,
+                                                      '<ul class="list-disc pl-5"$1>'
+                                                  )
+                                                  .replace(
+                                                      /<ol(.*?)>/gi,
+                                                      '<ol class="list-decimal pl-5"$1>'
+                                                  )
+                                            : "",
+                                    }}
+                                />
+                            </motion.div>
+                            {/* Area Card */}
+                            <motion.div
+                                initial={{ opacity: 0, y: 30 }}
+                                whileInView={{ opacity: 1, y: 0 }}
+                                viewport={{ once: true }}
+                                transition={{ duration: 0.5, delay: 0.3 }}
+                                className="bg-linear-to-br from-amber-500/10 to-yellow-600/10 border border-amber-500/30 rounded-lg p-6 shadow-lg shadow-amber-500/10"
+                            >
+                                <h3 className="text-xl font-bold text-amber-500 mb-3 text-center">
+                                    Area Features
+                                </h3>
+                                <div
+                                    className="text-gray-300 prose prose-invert max-w-none"
+                                    dangerouslySetInnerHTML={{
+                                        __html: project.area
+                                            ? project.area
+                                                  .replace(
+                                                      /<ul(.*?)>/gi,
+                                                      '<ul class="list-disc pl-5"$1>'
+                                                  )
+                                                  .replace(
+                                                      /<ol(.*?)>/gi,
+                                                      '<ol class="list-decimal pl-5"$1>'
+                                                  )
+                                            : "",
+                                    }}
+                                />
+                            </motion.div>
+                        </div>
                     </div>
                 </section>
 

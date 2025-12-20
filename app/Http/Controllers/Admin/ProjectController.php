@@ -145,6 +145,22 @@ class ProjectController extends Controller
     }
 
     /**
+     * Update overview, facilities, area only
+     */
+    public function updateInfo(Request $request, Project $project)
+    {
+        $validated = $request->validate([
+            'overview' => 'nullable|string',
+            'facilities' => 'nullable|string',
+            'area' => 'nullable|string',
+        ]);
+
+        $project->update($validated);
+
+        return redirect()->back()->with('success', 'Project information updated successfully');
+    }
+
+    /**
      * Remove the specified project
      */
     public function destroy(Project $project)

@@ -159,7 +159,7 @@ const AboutUs = ({ banner, statement, profile, goals, journeys }) => {
                         >
                             <div className="group">
                                 <div className="text-4xl font-bold text-amber-500 mb-2 group-hover:scale-110 transition-transform">
-                                    2017
+                                    {profile.starter}
                                 </div>
                                 <div className="text-gray-400 text-sm uppercase tracking-wide">
                                     Founded As Agency
@@ -167,7 +167,7 @@ const AboutUs = ({ banner, statement, profile, goals, journeys }) => {
                             </div>
                             <div className="group">
                                 <div className="text-4xl font-bold text-amber-500 mb-2 group-hover:scale-110 transition-transform">
-                                    2023
+                                    {profile.starter_company}
                                 </div>
                                 <div className="text-gray-400 text-sm uppercase tracking-wide">
                                     PT MUS Established
@@ -175,7 +175,7 @@ const AboutUs = ({ banner, statement, profile, goals, journeys }) => {
                             </div>
                             <div className="group">
                                 <div className="text-4xl font-bold text-amber-500 mb-2 group-hover:scale-110 transition-transform">
-                                    3
+                                    {profile.business_unit}
                                 </div>
                                 <div className="text-gray-400 text-sm uppercase tracking-wide">
                                     Business Units

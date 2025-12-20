@@ -1,10 +1,11 @@
 import { Head, Link, usePage, router } from "@inertiajs/react";
 import { motion } from "framer-motion";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import DashboardLayout from "../../components/Dashboard/DashboardLayout";
+import TextEditor from "../../components/TextEditor";
 
 const ProjectDetail = () => {
-    const { project } = usePage().props;
+    const { project, flash } = usePage().props;
     const [showBannerModal, setShowBannerModal] = useState(false);
     const [newBanner, setNewBanner] = useState(null);
     const [bannerPreview, setBannerPreview] = useState(null);
@@ -46,6 +47,37 @@ const ProjectDetail = () => {
     const [showDeleteVideoModal, setShowDeleteVideoModal] = useState(false);
     const [videoToDelete, setVideoToDelete] = useState(null);
     const [isDeletingVideo, setIsDeletingVideo] = useState(false);
+
+    // Tambahkan state untuk form overview, facilities, area
+    const [infoForm, setInfoForm] = useState({
+        overview: project.overview || "",
+        facilities: project.facilities || "",
+        area: project.area || "",
+    });
+    const [infoErrors, setInfoErrors] = useState({});
+    const [isInfoSubmitting, setIsInfoSubmitting] = useState(false);
+    const [infoNotification, setInfoNotification] = useState(null);
+    const [notification, setNotification] = useState(null);
+
+    // Auto-hide notification after 3 seconds
+    useEffect(() => {
+        if (notification) {
+            const timer = setTimeout(() => {
+                setNotification(null);
+            }, 3000);
+            return () => clearTimeout(timer);
+        }
+    }, [notification]);
+
+    // Auto-hide flash messages after 3 seconds
+    useEffect(() => {
+        if (flash?.success || flash?.error) {
+            const timer = setTimeout(() => {
+                router.reload({ only: ["flash"] });
+            }, 3000);
+            return () => clearTimeout(timer);
+        }
+    }, [flash]);
 
     const handleBannerChange = (e) => {
         const file = e.target.files[0];
@@ -365,6 +397,39 @@ const ProjectDetail = () => {
         );
     };
 
+    const handleInfoChange = (e) => {
+        setInfoForm({
+            ...infoForm,
+            [e.target.name]: e.target.value,
+        });
+    };
+
+    // Untuk update info overview, facilities, area
+    const handleInfoEditorChange = (name, value) => {
+        setInfoForm({
+            ...infoForm,
+            [name]: value,
+        });
+    };
+
+    const handleInfoSubmit = (e) => {
+        e.preventDefault();
+        setIsInfoSubmitting(true);
+        setInfoNotification(null);
+        setInfoErrors({});
+        router.put(`/admin/projects/${project.slug}/update-info`, infoForm, {
+            preserveScroll: true,
+            onSuccess: () => {
+                setInfoErrors({});
+                setIsInfoSubmitting(false);
+            },
+            onError: (errors) => {
+                setInfoErrors(errors);
+                setIsInfoSubmitting(false);
+            },
+        });
+    };
+
     const getStatusBadge = (status) => {
         const badges = {
             available: "bg-green-500/20 text-green-400 border-green-500/50",
@@ -393,6 +458,52 @@ const ProjectDetail = () => {
             <Head title={`${project.name} - Project Details`} />
 
             <DashboardLayout activePage="/admin/projects">
+                {/* Flash Notification */}
+                {(notification || flash?.success || flash?.error) && (
+                    <div className="fixed bottom-6 right-6 z-50 max-w-md">
+                        <div
+                            className={`relative p-4 pr-12 rounded-lg shadow-2xl border overflow-hidden ${
+                                notification?.type === "error" || flash?.error
+                                    ? "bg-red-500/95 border-red-600 text-white"
+                                    : "bg-green-500/95 border-green-600 text-white"
+                            } backdrop-blur-sm`}
+                        >
+                            {/* Close Button */}
+                            <button
+                                onClick={() => {
+                                    setNotification(null);
+                                    if (flash?.success || flash?.error) {
+                                        router.reload({ only: ["flash"] });
+                                    }
+                                }}
+                                className="absolute top-3 right-3 hover:bg-white/20 rounded-full p-1 transition-colors"
+                                aria-label="Close notification"
+                            >
+                                <svg
+                                    className="w-5 h-5"
+                                    fill="none"
+                                    strokeLinecap="round"
+                                    strokeLinejoin="round"
+                                    strokeWidth="2"
+                                    viewBox="0 0 24 24"
+                                    stroke="currentColor"
+                                >
+                                    <path d="M6 18L18 6M6 6l12 12"></path>
+                                </svg>
+                            </button>
+
+                            {/* Message */}
+                            <div className="pr-2">
+                                {notification?.message ||
+                                    flash?.success ||
+                                    flash?.error}
+                            </div>
+
+                            {/* Loading Bar */}
+                            <div className="absolute bottom-0 left-0 h-1 bg-white/40 animate-shrink" />
+                        </div>
+                    </div>
+                )}
                 <div className="p-6">
                     {/* Header */}
                     <div className="mb-8">
@@ -569,6 +680,103 @@ const ProjectDetail = () => {
                                 </div>
                             </div>
                         </div>
+                    </div>
+
+                    {/* Project Info Card: Overview, Facilities, Area */}
+                    <div className="bg-gray-900/50 border border-amber-500/30 rounded-lg overflow-hidden mb-8">
+                        <form
+                            id="project-info-form"
+                            onSubmit={handleInfoSubmit}
+                        >
+                            <div className="p-4 border-b border-amber-500/30 flex items-center justify-between">
+                                <h2 className="text-xl font-semibold text-amber-400">
+                                    Project Information
+                                </h2>
+                                <button
+                                    type="submit"
+                                    form="project-info-form"
+                                    className="flex gap-1 px-3 py-2 bg-amber-500 text-gray-900 rounded-lg hover:bg-amber-600 transition-colors text-xs"
+                                    disabled={isInfoSubmitting}
+                                >
+                                    <svg
+                                        className="w-4 h-4"
+                                        fill="none"
+                                        strokeLinecap="round"
+                                        strokeLinejoin="round"
+                                        strokeWidth="2"
+                                        viewBox="0 0 24 24"
+                                        stroke="currentColor"
+                                    >
+                                        <path d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
+                                    </svg>
+                                    {isInfoSubmitting
+                                        ? "Saving..."
+                                        : "Save Changes"}
+                                </button>
+                            </div>
+                            <div className="p-4 space-y-4">
+                                <div>
+                                    <label className="block text-sm font-medium text-gray-300 mb-1">
+                                        Overview
+                                    </label>
+                                    <TextEditor
+                                        content={infoForm.overview}
+                                        onChange={(content) =>
+                                            handleInfoEditorChange(
+                                                "overview",
+                                                content
+                                            )
+                                        }
+                                        placeholder="Project overview..."
+                                    />
+                                    {infoErrors.overview && (
+                                        <p className="mt-1 text-sm text-red-500">
+                                            {infoErrors.overview}
+                                        </p>
+                                    )}
+                                </div>
+                                <div>
+                                    <label className="block text-sm font-medium text-gray-300 mb-1">
+                                        Facilities
+                                    </label>
+                                    <TextEditor
+                                        content={infoForm.facilities}
+                                        onChange={(content) =>
+                                            handleInfoEditorChange(
+                                                "facilities",
+                                                content
+                                            )
+                                        }
+                                        placeholder="Project facilities..."
+                                    />
+                                    {infoErrors.facilities && (
+                                        <p className="mt-1 text-sm text-red-500">
+                                            {infoErrors.facilities}
+                                        </p>
+                                    )}
+                                </div>
+                                <div>
+                                    <label className="block text-sm font-medium text-gray-300 mb-1">
+                                        Area
+                                    </label>
+                                    <TextEditor
+                                        content={infoForm.area}
+                                        onChange={(content) =>
+                                            handleInfoEditorChange(
+                                                "area",
+                                                content
+                                            )
+                                        }
+                                        placeholder="Project area..."
+                                    />
+                                    {infoErrors.area && (
+                                        <p className="mt-1 text-sm text-red-500">
+                                            {infoErrors.area}
+                                        </p>
+                                    )}
+                                </div>
+                            </div>
+                        </form>
                     </div>
 
                     {/* Images Gallery */}

@@ -36,6 +36,9 @@ class ProjectController extends Controller
                     'unitsTotal' => $project->total_unit,
                     'image' => $project->banner ? Storage::url($project->banner) : null,
                     'gallery' => $project->images->map(fn($img) => Storage::url($img->image_path))->all(),
+                    'overview' => $project->overview,
+                    'facilities' => $project->facilities,
+                    'area' => $project->area,
                 ];
             });
     }

@@ -85,6 +85,7 @@ Route::middleware(['auth', 'role:super-admin|admin|editor'])->prefix('admin')->g
         Route::get('/{project}', [AdminProjectController::class, 'show'])->name('admin.projects.show');
         Route::post('/', [AdminProjectController::class, 'store'])->name('admin.projects.store');
         Route::put('/{project}', [AdminProjectController::class, 'update'])->name('admin.projects.update');
+        Route::put('/{project}/update-info', [AdminProjectController::class, 'updateInfo'])->name('admin.projects.update-info');
         Route::delete('/{project}', [AdminProjectController::class, 'destroy'])->name('admin.projects.destroy');
 
         // Project Images
