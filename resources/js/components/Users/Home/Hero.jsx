@@ -89,12 +89,18 @@ const Hero = ({ banners = [] }) => {
                         transition={{ duration: 0.8, delay: 0.8 }}
                         className="mt-10 flex justify-center gap-4"
                     >
-                        <button className="bg-linear-to-r from-amber-500 to-yellow-600 text-black px-8 py-3 rounded-lg text-lg font-semibold hover:from-amber-600 hover:to-yellow-700 transition shadow-lg shadow-amber-500/50 hover:shadow-amber-500/70 hover:scale-105 transform cursor-pointer">
+                        <a
+                            href="/projects"
+                            className="bg-linear-to-r from-amber-500 to-yellow-600 text-black px-8 py-3 rounded-lg text-lg font-semibold hover:from-amber-600 hover:to-yellow-700 transition shadow-lg shadow-amber-500/50 hover:shadow-amber-500/70 hover:scale-105 transform cursor-pointer"
+                        >
                             Explore Projects
-                        </button>
-                        <button className="border-2 border-amber-500 text-amber-400 bg-black/30 backdrop-blur-sm px-8 py-3 rounded-lg text-lg font-medium hover:bg-amber-500 hover:text-black transition hover:scale-105 transform cursor-pointer">
+                        </a>
+                        <a
+                            href="/contact"
+                            className="border-2 border-amber-500 text-amber-400 bg-black/30 backdrop-blur-sm px-8 py-3 rounded-lg text-lg font-medium hover:bg-amber-500 hover:text-black transition hover:scale-105 transform cursor-pointer"
+                        >
                             Contact Us
-                        </button>
+                        </a>
                     </motion.div>
                 </div>
             </div>

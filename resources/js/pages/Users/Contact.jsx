@@ -184,6 +184,23 @@ const Contact = ({ contact, banner }) => {
                                             </p>
                                         </div>
                                     </motion.div>
+
+                                    {/* Google Maps Embed */}
+                                    <div className="mt-8">
+                                        <iframe
+                                            title="Lokasi Kantor"
+                                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d513.5994704118796!2d119.85819775785617!3d-0.9020825999999957!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2d8bed3f95d6f91f%3A0x2f387626be983aa6!2sMacstore%20palu!5e1!3m2!1sen!2sid!4v1766195393367!5m2!1sen!2sid"
+                                            width="100%"
+                                            height="350"
+                                            style={{
+                                                border: 0,
+                                                borderRadius: "0.5rem",
+                                            }}
+                                            allowFullScreen=""
+                                            loading="lazy"
+                                            referrerPolicy="no-referrer-when-downgrade"
+                                        ></iframe>
+                                    </div>
                                 </div>
                             </motion.div>
 

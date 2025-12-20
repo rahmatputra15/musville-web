@@ -55,6 +55,19 @@ const Footer = () => {
                                 <span>{contact?.phone}</span>
                             </div>
                         </div>
+                        {/* Google Maps Embed */}
+                        <div className="mt-8">
+                            <iframe
+                                title="Lokasi Kantor"
+                                src="https://www.google.com/maps?q=Jalan+Sis+Al-Jufri,+Palu,+Indonesia&output=embed"
+                                width="100%"
+                                height="220"
+                                style={{ border: 0, borderRadius: "0.5rem" }}
+                                allowFullScreen=""
+                                loading="lazy"
+                                referrerPolicy="no-referrer-when-downgrade"
+                            ></iframe>
+                        </div>
                     </motion.div>
                     <motion.div
                         initial={{ opacity: 0, x: 50 }}
