@@ -7,6 +7,7 @@ import CompanyProfile from "../../components/Users/Home/CompanyProfile";
 import Partnership from "../../components/Users/Home/Partnership";
 
 const Home = ({
+    banner_header = null,
     banners = [],
     projects = [],
     statement = null,
@@ -31,13 +32,31 @@ const Home = ({
                     property="og:description"
                     content="The Best Shariah Development and Sustainable Company - Commercial Building, Resort & Elite Residential in Indonesia"
                 />
-                <meta property="og:image" content="/assets/logos/logo.png" />
+                <meta
+                    property="og:image"
+                    content={
+                        typeof window !== "undefined"
+                            ? window.location.origin +
+                              "/storage/" +
+                              banner_header.image
+                            : "/assets/logos/logo.png"
+                    }
+                />
                 <meta name="twitter:title" content="Home - Musville" />
                 <meta
                     name="twitter:description"
                     content="The Best Shariah Development and Sustainable Company - Commercial Building, Resort & Elite Residential in Indonesia"
                 />
-                <meta name="twitter:image" content="/assets/logos/logo.png" />
+                <meta
+                    name="twitter:image"
+                    content={
+                        typeof window !== "undefined"
+                            ? window.location.origin +
+                              "/storage/" +
+                              banner_header.image
+                            : "/assets/logos/logo.png"
+                    }
+                />
             </Head>
 
             <UsersLayout activePage="home">

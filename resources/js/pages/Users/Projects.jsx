@@ -167,15 +167,21 @@ const Projects = ({ banner, projects }) => {
                                                 <span
                                                     className={`px-3 py-1 rounded-full text-xs font-medium ${
                                                         project.status ===
-                                                        "Available"
+                                                        "available"
                                                             ? "bg-green-500 text-white"
                                                             : project.status ===
-                                                              "Sold Out"
+                                                              "sold"
                                                             ? "bg-red-500 text-white"
                                                             : "bg-yellow-500 text-white"
                                                     }`}
                                                 >
-                                                    {project.status}
+                                                    {project.status ===
+                                                    "available"
+                                                        ? "Available"
+                                                        : project.status ===
+                                                          "sold"
+                                                        ? "Sold Out"
+                                                        : "Coming Soon"}
                                                 </span>
                                             </div>
                                         </div>

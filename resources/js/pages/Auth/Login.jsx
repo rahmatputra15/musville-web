@@ -207,6 +207,7 @@ const Login = () => {
                                         }
                                         className="w-full px-4 py-3 bg-black/50 border border-amber-500/50 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-transparent transition"
                                         placeholder="Enter your email"
+                                        autoFocus
                                         required
                                     />
                                     {errors.email && (

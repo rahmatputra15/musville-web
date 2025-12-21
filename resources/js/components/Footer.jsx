@@ -11,12 +11,7 @@ const Footer = () => {
         >
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
-                    <motion.div
-                        initial={{ opacity: 0, x: -50 }}
-                        whileInView={{ opacity: 1, x: 0 }}
-                        viewport={{ once: true }}
-                        transition={{ duration: 0.6 }}
-                    >
+                    <div>
                         <h2 className="text-3xl font-bold text-amber-500 mb-6">
                             Get In Touch
                         </h2>
@@ -55,26 +50,8 @@ const Footer = () => {
                                 <span>{contact?.phone}</span>
                             </div>
                         </div>
-                        {/* Google Maps Embed */}
-                        <div className="mt-8">
-                            <iframe
-                                title="Lokasi Kantor"
-                                src="https://www.google.com/maps?q=Jalan+Sis+Al-Jufri,+Palu,+Indonesia&output=embed"
-                                width="100%"
-                                height="220"
-                                style={{ border: 0, borderRadius: "0.5rem" }}
-                                allowFullScreen=""
-                                loading="lazy"
-                                referrerPolicy="no-referrer-when-downgrade"
-                            ></iframe>
-                        </div>
-                    </motion.div>
-                    <motion.div
-                        initial={{ opacity: 0, x: 50 }}
-                        whileInView={{ opacity: 1, x: 0 }}
-                        viewport={{ once: true }}
-                        transition={{ duration: 0.6 }}
-                    >
+                    </div>
+                    <div>
                         <h3 className="text-2xl font-semibold text-amber-500 mb-6">
                             Follow Us
                         </h3>
@@ -122,20 +99,14 @@ const Footer = () => {
                                 </svg>
                             </a>
                         </div>
-                    </motion.div>
+                    </div>
                 </div>
-                <motion.div
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.6, delay: 0.3 }}
-                    className="mt-12 pt-8 border-t border-amber-500/20 text-center text-gray-500"
-                >
+                <div className="mt-12 pt-8 border-t border-amber-500/20 text-center text-gray-500">
                     <p>
                         &copy; 2025 PT. Madani Utama Selebes. All rights
                         reserved.
                     </p>
-                </motion.div>
+                </div>
             </div>
         </footer>
     );

@@ -71,14 +71,18 @@ const Projects = ({ projects = [] }) => {
                                 <div className="absolute top-4 right-4">
                                     <span
                                         className={`px-3 py-1 rounded-full text-xs font-medium ${
-                                            project.status === "Available"
+                                            project.status === "available"
                                                 ? "bg-green-500 text-white"
-                                                : project.status === "Sold Out"
+                                                : project.status === "sold"
                                                 ? "bg-red-500 text-white"
                                                 : "bg-yellow-500 text-white"
                                         }`}
                                     >
-                                        {project.status}
+                                        {project.status === "available"
+                                            ? "Available"
+                                            : project.status === "sold"
+                                            ? "Sold Out"
+                                            : "Coming Soon"}
                                     </span>
                                 </div>
                             </div>

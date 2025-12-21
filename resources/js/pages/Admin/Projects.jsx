@@ -24,7 +24,7 @@ const Projects = () => {
 
     const statuses = [
         { value: "available", label: "Available" },
-        { value: "sold", label: "Sold" },
+        { value: "sold", label: "Sold Out" },
         { value: "coming_soon", label: "Coming Soon" },
     ];
 

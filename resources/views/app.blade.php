@@ -8,7 +8,6 @@
 
     @viteReactRefresh
     @vite('resources/js/app.jsx')
-    @vite('resources/css/app.css')
     @inertiaHead
 
     <!-- Favicon -->
@@ -17,10 +16,8 @@
 
     <!-- Meta Tags -->
     <meta name="author" content="PT. Madani Utama Selebes">
-
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website">
-
     <!-- Twitter -->
     <meta name="twitter:card" content="summary_large_image">
 </head>
