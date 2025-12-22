@@ -17,30 +17,31 @@ const Home = ({
     partnerships = [],
 }) => {
     // Helper untuk menentukan url gambar banner atau logo default
-    const getBannerImage = () => {
-        if (banner_header && banner_header.image) {
-            if (typeof window !== "undefined") {
-                // Jika path sudah absolute (misal sudah mengandung http), langsung return
-                if (banner_header.image.startsWith("http"))
-                    return banner_header.image;
-                // Jika path relatif, tambahkan origin dan storage
-                return (
-                    window.location.origin +
-                    "/storage/" +
-                    banner_header.image.replace(/^\/+/, "")
-                );
-            }
-            // SSR fallback
-            return "/storage/" + banner_header.image.replace(/^\/+/, "");
-        }
-        // Jika tidak ada banner, pakai logo default
-        return "/assets/logos/logo.png";
-    };
+    // const getBannerImage = () => {
+    //     if (banner_header && banner_header.image) {
+    //         if (typeof window !== "undefined") {
+
+    //             if (banner_header.image.startsWith("http"))
+    //                 return banner_header.image;
+
+    //             return (
+    //                 window.location.origin +
+    //                 "/storage/" +
+    //                 banner_header.image.replace(/^\/+/, "")
+    //             );
+    //         }
+
+    //         return "/storage/" + banner_header.image.replace(/^\/+/, "");
+    //     }
+
+    //     return "/assets/logos/logo.png";
+    // };
+
     return (
         <>
             <Head>
                 <title>Home</title>
-                <meta
+                {/* <meta
                     name="description"
                     content="PT. Madani Utama Selebes - The Best Shariah Development and Sustainable Company. Commercial Building, Resort & Elite Residential in Indonesia."
                 />
@@ -62,7 +63,7 @@ const Home = ({
                     content="The Best Shariah Development and Sustainable Company - Commercial Building, Resort & Elite Residential in Indonesia"
                 />
                 <meta name="twitter:image" content={getBannerImage()} />
-                <meta name="twitter:card" content="summary_large_image" />
+                <meta name="twitter:card" content="summary_large_image" /> */}
             </Head>
 
             <UsersLayout activePage="home">

@@ -13,6 +13,7 @@
     <!-- Favicon -->
     <link rel="icon" type="image/png" href="/assets/logos/logo.png">
     <link rel="apple-touch-icon" href="/assets/logos/logo.png">
+    {!! \App\Providers\Meta::render() !!}
 </head>
 
 <body>

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Users;
 
 use App\Http\Controllers\Controller;
 use App\Models\BannerHero;
+use App\Providers\Meta;
 use Inertia\Inertia;
 
 class HomeController extends Controller
@@ -39,8 +40,21 @@ class HomeController extends Controller
             ->orderBy('created_at', 'asc')
             ->get();
 
+        Meta::addMeta('author', 'PT. Madani Utama Selebes');
+        Meta::addMeta('description', 'PT. Madani Utama Selebes - The Best Shariah Development and Sustainable Company. Commercial Building, Resort & Elite Residential in Indonesia.');
+        Meta::addMeta('keywords', 'musville, property, real estate, shariah, islamic housing, Indonesia, PT Madani Utama Selebes');
+        Meta::addMeta('og:type', 'website');
+        Meta::addMeta('og:title', 'Home - Musville');
+        Meta::addMeta('og:description', 'PT. Madani Utama Selebes - The Best Shariah Development and Sustainable Company. Commercial Building, Resort & Elite Residential in Indonesia.');
+        Meta::addMeta('og:image', $banners->first() ? asset('storage/' . $banners->first()->image) : asset('assets/logos/logo.png'));
+        Meta::addMeta('og:url', url('/'));
+        Meta::addMeta('twitter:title', 'Home - Musville');
+        Meta::addMeta('twitter:description', 'PT. Madani Utama Selebes - The Best Shariah Development and Sustainable Company. Commercial Building, Resort & Elite Residential in Indonesia.');
+        Meta::addMeta('twitter:image', $banners->first() ? asset('storage/' . $banners->first()->image) : asset('assets/logos/logo.png'));
+        Meta::addMeta('twitter:card', 'summary_large_image');
+
         return Inertia::render('Users/Home', [
-            'banner_header' => $banners->first() ?: null,
+            'banner_header' => $banners->first(),
             'banners' => $banners,
             'projects' => $projects,
             'statement' => $statement,

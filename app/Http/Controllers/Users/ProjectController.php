@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Users;
 use App\Http\Controllers\Controller;
 use App\Models\BannerPage;
 use App\Models\Project;
+use App\Providers\Meta;
 use Illuminate\Support\Facades\Storage;
 use Inertia\Inertia;
 
@@ -15,6 +16,20 @@ class ProjectController extends Controller
         $banner = BannerPage::where('page', 'projects')->first();
 
         $projects = $this->getProjects();
+
+        Meta::addMeta('author', 'PT. Madani Utama Selebes');
+        Meta::addMeta('description', 'Explore our premium property developments. Available projects, sold out units, and upcoming developments.');
+        Meta::addMeta('keywords', 'musville projects, property developments, real estate projects, shariah housing, Indonesia property');
+        Meta::addMeta('og:type', 'website');
+        Meta::addMeta('og:title', 'Projects - Musville');
+        Meta::addMeta('og:description', 'Explore our premium property developments. Available projects, sold out units, and upcoming developments.');
+        Meta::addMeta('og:image', $banner ? asset('storage/' . $banner->image) : asset('assets/logos/logo.png'));
+        Meta::addMeta('og:url', url('/projects'));
+        Meta::addMeta('twitter:title', 'Projects - Musville');
+        Meta::addMeta('twitter:description', 'Explore our premium property developments. Available projects, sold out units, and upcoming developments.');
+        Meta::addMeta('twitter:image', $banner ? asset('storage/' . $banner->image) : asset('assets/logos/logo.png'));
+        Meta::addMeta('twitter:card', 'summary_large_image');
+
         return Inertia::render('Users/Projects', [
             'banner' => $banner,
             'projects' => $projects,
@@ -46,7 +61,6 @@ class ProjectController extends Controller
     public function show($slug)
     {
         $projects = $this->getProjects();
-
         // Find project by slug
         $project = collect($projects)->firstWhere('slug', $slug);
 
@@ -54,6 +68,19 @@ class ProjectController extends Controller
         if (!$project) {
             return redirect('/')->with('error', 'Project not found');
         }
+
+        Meta::addMeta('author', 'PT. Madani Utama Selebes');
+        Meta::addMeta('description', $project['name'] . ' - ' . $project['status'] . '. ' . $project['unitsSold'] . '/' . $project['unitsTotal'] . ' units sold.');
+        Meta::addMeta('keywords', 'musville, ' . $project['name'] . ', property, real estate, shariah, islamic housing, Indonesia, PT Madani Utama Selebes');
+        Meta::addMeta('og:type', 'website');
+        Meta::addMeta('og:title', $project['name'] . ' - Musville');
+        Meta::addMeta('og:description', $project['name'] . ' - ' . $project['status'] . '. ' . $project['unitsSold'] . '/' . $project['unitsTotal'] . ' units sold.');
+        Meta::addMeta('og:image', $project ? asset($project['image']) : asset('assets/logos/logo.png'));
+        Meta::addMeta('og:url', url('/projects/' . $project['slug']));
+        Meta::addMeta('twitter:title', $project['name'] . ' - Musville');
+        Meta::addMeta('twitter:description', $project['name'] . ' - ' . $project['status'] . '. ' . $project['unitsSold'] . '/' . $project['unitsTotal'] . ' units sold.');
+        Meta::addMeta('twitter:image', $project ? asset($project['image']) : asset('assets/logos/logo.png'));
+        Meta::addMeta('twitter:card', 'summary_large_image');
 
         return Inertia::render('Users/DetailProject', [
             'project' => $project
