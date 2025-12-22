@@ -40,7 +40,7 @@ class HomeController extends Controller
             ->get();
 
         return Inertia::render('Users/Home', [
-            'banner_header' => $banners->first(),
+            'banner_header' => $banners->first() ?: null,
             'banners' => $banners,
             'projects' => $projects,
             'statement' => $statement,

@@ -35,9 +35,29 @@ const Projects = ({ banner, projects }) => {
         );
     };
 
+    const getBannerImage = () => {
+        if (banner && banner.image) {
+            if (typeof window !== "undefined") {
+                // Jika path sudah absolute (misal sudah mengandung http), langsung return
+                if (banner.image.startsWith("http")) return banner.image;
+                // Jika path relatif, tambahkan origin dan storage
+                return (
+                    window.location.origin +
+                    "/storage/" +
+                    banner.image.replace(/^\/+/, "")
+                );
+            }
+            // SSR fallback
+            return "/storage/" + banner.image.replace(/^\/+/, "");
+        }
+        // Jika tidak ada banner, pakai logo default
+        return "/assets/logos/logo.png";
+    };
+
     return (
         <>
-            <Head title="Projects - Musville">
+            <Head>
+                <title>Projects</title>
                 <meta
                     name="description"
                     content="Explore our premium property developments. Available projects, sold out units, and upcoming developments."
@@ -46,12 +66,21 @@ const Projects = ({ banner, projects }) => {
                     name="keywords"
                     content="musville projects, property developments, real estate projects, shariah housing, Indonesia property"
                 />
+                <meta name="author" content="PT. Madani Utama Selebes" />
+                <meta property="og:type" content="website" />
                 <meta property="og:title" content="Projects - Musville" />
                 <meta
                     property="og:description"
-                    content="Explore our premium property developments"
+                    content="Explore our premium property developments. Available projects, sold out units, and upcoming developments."
                 />
-                <meta property="og:image" content="/assets/logos/logo.png" />
+                <meta property="og:image" content={getBannerImage()} />
+                <meta name="twitter:title" content="Projects - Musville" />
+                <meta
+                    name="twitter:description"
+                    content="Explore our premium property developments. Available projects, sold out units, and upcoming developments."
+                />
+                <meta name="twitter:image" content={getBannerImage()} />
+                <meta name="twitter:card" content="summary_large_image" />
             </Head>
 
             <UsersLayout activePage="projects">

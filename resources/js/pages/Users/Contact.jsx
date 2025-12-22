@@ -3,6 +3,25 @@ import { motion } from "framer-motion";
 import UsersLayout from "../../components/Users/UsersLayout";
 
 const Contact = ({ contact, banner }) => {
+    const getBannerImage = () => {
+        if (banner && banner.image) {
+            if (typeof window !== "undefined") {
+                // Jika path sudah absolute (misal sudah mengandung http), langsung return
+                if (banner.image.startsWith("http")) return banner.image;
+                // Jika path relatif, tambahkan origin dan storage
+                return (
+                    window.location.origin +
+                    "/storage/" +
+                    banner.image.replace(/^\/+/, "")
+                );
+            }
+            // SSR fallback
+            return "/storage/" + banner.image.replace(/^\/+/, "");
+        }
+        // Jika tidak ada banner, pakai logo default
+        return "/assets/logos/logo.png";
+    };
+
     return (
         <>
             <Head title="Contact Us - Musville">
@@ -20,6 +39,33 @@ const Contact = ({ contact, banner }) => {
                     content="Get in touch with us for property investments and inquiries"
                 />
                 <meta property="og:image" content="/assets/logos/logo.png" />
+            </Head>
+
+            <Head>
+                <title>Contact Us</title>
+                <meta
+                    name="description"
+                    content="Get in touch with PT. Madani Utama Selebes. Contact us for inquiries about property investments, partnerships, and more."
+                />
+                <meta
+                    name="keywords"
+                    content="contact musville, property inquiry, real estate contact, PT Madani Utama Selebes contact"
+                />
+                <meta name="author" content="PT. Madani Utama Selebes" />
+                <meta property="og:type" content="website" />
+                <meta property="og:title" content="Contact Us - Musville" />
+                <meta
+                    property="og:description"
+                    content="Get in touch with PT. Madani Utama Selebes. Contact us for inquiries about property investments, partnerships, and more."
+                />
+                <meta property="og:image" content={getBannerImage()} />
+                <meta name="twitter:title" content="Contact Us - Musville" />
+                <meta
+                    name="twitter:description"
+                    content="Get in touch with PT. Madani Utama Selebes. Contact us for inquiries about property investments, partnerships, and more."
+                />
+                <meta name="twitter:image" content={getBannerImage()} />
+                <meta name="twitter:card" content="summary_large_image" />
             </Head>
 
             <UsersLayout activePage="contact">

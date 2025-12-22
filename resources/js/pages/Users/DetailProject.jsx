@@ -42,11 +42,29 @@ const DetailProject = ({ project }) => {
         }
     };
 
-    console.log(project);
+    const getBannerImage = () => {
+        if (project && project.image) {
+            if (typeof window !== "undefined") {
+                // Jika path sudah absolute (misal sudah mengandung http), langsung return
+                if (project.image.startsWith("http")) return project.image;
+                // Jika path relatif, tambahkan origin dan storage
+                return (
+                    window.location.origin +
+                    "/" +
+                    project.image.replace(/^\/+/, "")
+                );
+            }
+            // SSR fallback
+            return "/" + project.image.replace(/^\/+/, "");
+        }
+        // Jika tidak ada banner, pakai logo default
+        return "/assets/logos/logo.png";
+    };
 
     return (
         <>
-            <Head title={`${project.name} - Musville`}>
+            <Head>
+                <title>{project.name}</title>
                 <meta
                     name="description"
                     content={`${project.name} - ${project.status}. ${project.unitsSold}/${project.unitsTotal} units sold.`}
@@ -55,6 +73,8 @@ const DetailProject = ({ project }) => {
                     name="keywords"
                     content={`musville, ${project.slug}, property, real estate, shariah, Indonesia`}
                 />
+                <meta name="author" content="PT. Madani Utama Selebes" />
+                <meta property="og:type" content="website" />
                 <meta
                     property="og:title"
                     content={`${project.name} - Musville`}
@@ -63,7 +83,17 @@ const DetailProject = ({ project }) => {
                     property="og:description"
                     content={`${project.name} - ${project.status}. ${project.unitsSold}/${project.unitsTotal} units sold.`}
                 />
-                <meta property="og:image" content={project.image} />
+                <meta property="og:image" content={getBannerImage()} />
+                <meta
+                    name="twitter:title"
+                    content={`${project.name} - Musville`}
+                />
+                <meta
+                    name="twitter:description"
+                    content={`${project.name} - ${project.status}. ${project.unitsSold}/${project.unitsTotal} units sold.`}
+                />
+                <meta name="twitter:image" content={getBannerImage()} />
+                <meta name="twitter:card" content="summary_large_image" />
             </Head>
 
             <UsersLayout activePage="projects">

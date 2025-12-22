@@ -23,9 +23,29 @@ const AboutUs = ({ banner, statement, profile, goals, journeys }) => {
         },
     ];
 
+    const getBannerImage = () => {
+        if (banner && banner.image) {
+            if (typeof window !== "undefined") {
+                // Jika path sudah absolute (misal sudah mengandung http), langsung return
+                if (banner.image.startsWith("http")) return banner.image;
+                // Jika path relatif, tambahkan origin dan storage
+                return (
+                    window.location.origin +
+                    "/storage/" +
+                    banner.image.replace(/^\/+/, "")
+                );
+            }
+            // SSR fallback
+            return "/storage/" + banner.image.replace(/^\/+/, "");
+        }
+        // Jika tidak ada banner, pakai logo default
+        return "/assets/logos/logo.png";
+    };
+
     return (
         <>
-            <Head title="About Us - Musville">
+            <Head>
+                <title>About Us</title>
                 <meta
                     name="description"
                     content="Learn about PT. Madani Utama Selebes - Our history, vision, mission, and commitment to quality shariah-compliant property development."
@@ -34,12 +54,21 @@ const AboutUs = ({ banner, statement, profile, goals, journeys }) => {
                     name="keywords"
                     content="about musville, company profile, shariah developer, PT Madani Utama Selebes, real estate company"
                 />
+                <meta name="author" content="PT. Madani Utama Selebes" />
+                <meta property="og:type" content="website" />
                 <meta property="og:title" content="About Us - Musville" />
                 <meta
                     property="og:description"
-                    content="Learn about our commitment to quality shariah-compliant property development"
+                    content="Learn about PT. Madani Utama Selebes - Our history, vision, mission, and commitment to quality shariah-compliant property development."
                 />
-                <meta property="og:image" content="/assets/logos/logo.png" />
+                <meta property="og:image" content={getBannerImage()} />
+                <meta name="twitter:title" content="About Us - Musville" />
+                <meta
+                    name="twitter:description"
+                    content="Learn about PT. Madani Utama Selebes - Our history, vision, mission, and commitment to quality shariah-compliant property development."
+                />
+                <meta name="twitter:image" content={getBannerImage()} />
+                <meta name="twitter:card" content="summary_large_image" />
             </Head>
 
             <UsersLayout activePage="about">
