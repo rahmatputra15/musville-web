@@ -46,10 +46,11 @@ const Projects = ({ projects = [] }) => {
                     className="text-center mb-12"
                 >
                     <h2 className="text-4xl font-bold text-amber-500 mb-4">
-                        Our Projects
+                        Proyek Kami
                     </h2>
                     <p className="text-gray-400 text-lg">
-                        Explore our premium property developments
+                        Kenali proyek-proyek properti premium yang kami
+                        kembangkan
                     </p>
                 </motion.div>
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -118,13 +119,13 @@ const Projects = ({ projects = [] }) => {
                                         }
                                         className="flex-1 bg-linear-to-r from-amber-500 to-yellow-600 text-black font-semibold py-2 rounded-lg hover:from-amber-600 hover:to-yellow-700 transition cursor-pointer"
                                     >
-                                        Gallery
+                                        Galeri
                                     </button>
                                     <Link
                                         href={`/projects/${project.slug}`}
                                         className="flex-1 border border-amber-500 text-amber-500 py-2 rounded-lg hover:bg-amber-500 hover:text-black transition cursor-pointer text-center"
                                     >
-                                        Details
+                                        Detail
                                     </Link>
                                 </div>
                             </div>

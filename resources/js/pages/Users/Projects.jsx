@@ -62,12 +62,12 @@ const Projects = ({ banner, projects }) => {
                             className="text-center px-4"
                         >
                             <h1 className="mt-10 text-5xl md:text-6xl font-bold text-white mb-4 drop-shadow-lg">
-                                {banner ? banner.title : "Our Projects"}
+                                {banner ? banner.title : "Projek Kami"}
                             </h1>
                             <p className="text-gray-200 text-lg md:text-xl max-w-2xl mx-auto drop-shadow">
                                 {banner
                                     ? banner.subtitle
-                                    : "Explore our premium property developments"}
+                                    : "Jelajahi pengembangan properti syariah berkualitas kami"}
                             </p>
                         </motion.div>
                     </div>
@@ -82,8 +82,8 @@ const Projects = ({ banner, projects }) => {
                             className="text-center mb-12"
                         >
                             <p className="text-gray-400 text-lg max-w-2xl mx-auto">
-                                We offer quality shariah-compliant properties
-                                with modern design and strategic locations.
+                                Kami menawarkan properti syariah berkualitas
+                                dengan desain modern dan lokasi strategis
                             </p>
                         </motion.div>
 
@@ -97,7 +97,7 @@ const Projects = ({ banner, projects }) => {
                             <div className="relative">
                                 <input
                                     type="text"
-                                    placeholder="Search projects by name or status..."
+                                    placeholder="Caari projek, nama atau status..."
                                     value={searchQuery}
                                     onChange={(e) =>
                                         setSearchQuery(e.target.value)
@@ -206,13 +206,13 @@ const Projects = ({ banner, projects }) => {
                                                     }
                                                     className="flex-1 bg-linear-to-r from-amber-500 to-yellow-600 text-black font-semibold py-2 rounded-lg hover:from-amber-600 hover:to-yellow-700 transition cursor-pointer"
                                                 >
-                                                    Gallery
+                                                    Galeri
                                                 </button>
                                                 <Link
                                                     href={`/projects/${project.slug}`}
                                                     className="flex-1 border border-amber-500 text-amber-500 py-2 rounded-lg hover:bg-amber-500 hover:text-black transition cursor-pointer text-center"
                                                 >
-                                                    Details
+                                                    Detail
                                                 </Link>
                                             </div>
                                         </div>

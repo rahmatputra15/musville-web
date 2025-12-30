@@ -80,7 +80,7 @@ const DetailProject = ({ project }) => {
                                         clipRule="evenodd"
                                     />
                                 </svg>
-                                Back to Projects
+                                Kembali ke Daftar Proyek
                             </Link>
                             <h1 className="text-5xl md:text-6xl font-bold text-white mb-4 drop-shadow-lg">
                                 {project.name}
@@ -95,7 +95,7 @@ const DetailProject = ({ project }) => {
                                 </span>
                                 <span className="text-gray-200 text-lg bg-black/30 px-6 py-2 rounded-full backdrop-blur-sm">
                                     {project.unitsSold}/{project.unitsTotal}{" "}
-                                    Units Sold
+                                    Units Terjual
                                 </span>
                             </div>
                         </motion.div>
@@ -117,7 +117,7 @@ const DetailProject = ({ project }) => {
                                     {project.unitsTotal}
                                 </div>
                                 <div className="text-gray-400 text-sm uppercase tracking-wide">
-                                    Total Units
+                                    Total Unit
                                 </div>
                             </div>
                             <div className="group">
@@ -125,7 +125,7 @@ const DetailProject = ({ project }) => {
                                     {project.unitsSold}
                                 </div>
                                 <div className="text-gray-400 text-sm uppercase tracking-wide">
-                                    Units Sold
+                                    Unit Terjual
                                 </div>
                             </div>
                             <div className="group">
@@ -138,7 +138,7 @@ const DetailProject = ({ project }) => {
                                     %
                                 </div>
                                 <div className="text-gray-400 text-sm uppercase tracking-wide">
-                                    Sold Progress
+                                    Presentase Terjual
                                 </div>
                             </div>
                         </motion.div>
@@ -156,10 +156,10 @@ const DetailProject = ({ project }) => {
                             className="text-center mb-12"
                         >
                             <h2 className="text-4xl font-bold text-amber-500 mb-4">
-                                Project Information
+                                Informasi Proyek
                             </h2>
                             <p className="text-gray-400">
-                                Complete details about the project
+                                Detail lengkap tentang proyek
                             </p>
                         </motion.div>
                         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -216,7 +216,7 @@ const DetailProject = ({ project }) => {
                                         />
                                     </svg>
                                     <h3 className="text-lg font-semibold text-amber-500">
-                                        Total Units
+                                        Total Unit
                                     </h3>
                                 </div>
                                 <p className="text-gray-300 text-xl font-semibold">
@@ -246,7 +246,7 @@ const DetailProject = ({ project }) => {
                                         />
                                     </svg>
                                     <h3 className="text-lg font-semibold text-amber-500">
-                                        Units Sold
+                                        Unit Terjual
                                     </h3>
                                 </div>
                                 <p className="text-gray-300 text-xl font-semibold">
@@ -276,7 +276,7 @@ const DetailProject = ({ project }) => {
                                         />
                                     </svg>
                                     <h3 className="text-lg font-semibold text-amber-500">
-                                        Available
+                                        Tersedia
                                     </h3>
                                 </div>
                                 <p className="text-gray-300 text-xl font-semibold">
@@ -295,7 +295,7 @@ const DetailProject = ({ project }) => {
                             className="mt-12 bg-linear-to-br from-gray-900 to-gray-800 border border-amber-500/30 rounded-lg shadow-lg shadow-amber-500/20 p-8"
                         >
                             <h3 className="text-2xl font-semibold text-amber-500 mb-6 text-center">
-                                Sales Progress
+                                Progres Penjualan
                             </h3>
                             <div className="flex items-center gap-4">
                                 <div className="flex-1 h-6 bg-gray-800 rounded-full overflow-hidden">
@@ -335,7 +335,7 @@ const DetailProject = ({ project }) => {
                                 className="bg-linear-to-br from-amber-500/10 to-yellow-600/10 border border-amber-500/30 rounded-lg p-6 shadow-lg shadow-amber-500/10"
                             >
                                 <h3 className="text-xl font-bold text-amber-500 mb-3 text-center">
-                                    Property Overview
+                                    Gambaran Properti
                                 </h3>
                                 <div
                                     className="text-gray-300 prose prose-invert max-w-none"
@@ -363,7 +363,7 @@ const DetailProject = ({ project }) => {
                                 className="bg-linear-to-br from-amber-500/10 to-yellow-600/10 border border-amber-500/30 rounded-lg p-6 shadow-lg shadow-amber-500/10"
                             >
                                 <h3 className="text-xl font-bold text-amber-500 mb-3 text-center">
-                                    Nearby Facilities
+                                    Fasilitas Terdekat
                                 </h3>
                                 <div
                                     className="text-gray-300 prose prose-invert max-w-none"
@@ -391,7 +391,7 @@ const DetailProject = ({ project }) => {
                                 className="bg-linear-to-br from-amber-500/10 to-yellow-600/10 border border-amber-500/30 rounded-lg p-6 shadow-lg shadow-amber-500/10"
                             >
                                 <h3 className="text-xl font-bold text-amber-500 mb-3 text-center">
-                                    Area Features
+                                    Keunggulan Kawasan
                                 </h3>
                                 <div
                                     className="text-gray-300 prose prose-invert max-w-none"
@@ -425,10 +425,10 @@ const DetailProject = ({ project }) => {
                             className="text-center mb-12"
                         >
                             <h2 className="text-4xl font-bold text-amber-500 mb-4">
-                                Project Gallery
+                                Galeri Proyek
                             </h2>
                             <p className="text-gray-400">
-                                Explore the beauty of {project.name}
+                                Jelajahi keindahan {project.name}
                             </p>
                         </motion.div>
                         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">

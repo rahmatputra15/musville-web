@@ -11,15 +11,15 @@ const CompanyProfile = ({ profile, journeys = [], companyGoals }) => {
 
     const profiles = [
         {
-            title: "Our History",
+            title: "Cerita Kami",
             content: profile.our_story,
         },
         {
-            title: "Core Business",
+            title: "Bisnis Inti Kami",
             content: profile.core_business,
         },
         {
-            title: "Our Commitment",
+            title: "Komitmen Kami",
             content: profile.our_commitment,
         },
     ];
@@ -40,7 +40,7 @@ const CompanyProfile = ({ profile, journeys = [], companyGoals }) => {
                         className="text-center mb-12"
                     >
                         <h2 className="text-4xl font-bold text-amber-500 mb-4">
-                            Company Profile
+                            Profil Perusahaan
                         </h2>
                     </motion.div>
 
@@ -54,26 +54,26 @@ const CompanyProfile = ({ profile, journeys = [], companyGoals }) => {
                     >
                         <div className="group">
                             <div className="text-4xl font-bold text-amber-500 mb-2 group-hover:scale-110 transition-transform">
-                                2017
+                                {profile.starter}
                             </div>
                             <div className="text-gray-400 text-sm uppercase tracking-wide">
-                                Founded As Agency
+                                Didirikan sebagai Agensi
                             </div>
                         </div>
                         <div className="group">
                             <div className="text-4xl font-bold text-amber-500 mb-2 group-hover:scale-110 transition-transform">
-                                2023
+                                {profile.starter_company}
                             </div>
                             <div className="text-gray-400 text-sm uppercase tracking-wide">
-                                PT MUS Established
+                                PT MUS Didirikan
                             </div>
                         </div>
                         <div className="group">
                             <div className="text-4xl font-bold text-amber-500 mb-2 group-hover:scale-110 transition-transform">
-                                3
+                                {profile.business_unit}
                             </div>
                             <div className="text-gray-400 text-sm uppercase tracking-wide">
-                                Business Units
+                                Unit Bisnis
                             </div>
                         </div>
                     </motion.div>
@@ -127,10 +127,10 @@ const CompanyProfile = ({ profile, journeys = [], companyGoals }) => {
                         className="text-center mb-12"
                     >
                         <h2 className="text-4xl font-bold mb-4 drop-shadow-lg">
-                            Company Goals
+                            Tujuan Perusahaan
                         </h2>
                         <p className="text-amber-100">
-                            Our vision for the future
+                            Visi kami untuk masa depan properti berkualitas
                         </p>
                     </motion.div>
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
@@ -163,7 +163,7 @@ const CompanyProfile = ({ profile, journeys = [], companyGoals }) => {
                                     </div>
                                 </div>
                                 <h3 className="text-2xl font-semibold mb-3">
-                                    Vision
+                                    Visi
                                 </h3>
                                 <p className="text-amber-100">
                                     {goal.description}
@@ -185,10 +185,10 @@ const CompanyProfile = ({ profile, journeys = [], companyGoals }) => {
                         className="text-center mb-12"
                     >
                         <h2 className="text-4xl font-bold text-amber-500 mb-4">
-                            Company Journey
+                            Perjalanan Perusahaan
                         </h2>
                         <p className="text-gray-400">
-                            Our path to building quality properties
+                            Langkah kami dalam membangun properti berkualitas
                         </p>
                     </motion.div>
                     <div className="relative">
@@ -237,7 +237,7 @@ const CompanyProfile = ({ profile, journeys = [], companyGoals }) => {
                         ))}
                         {timeline.length === 0 && (
                             <p className="text-gray-400 text-center">
-                                -- No journey data available --
+                                -- Tidak ada perjalanan --
                             </p>
                         )}
                     </div>

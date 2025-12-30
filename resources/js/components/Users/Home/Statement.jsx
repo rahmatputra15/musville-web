@@ -13,7 +13,7 @@ const Statement = ({ statement }) => {
                     className="text-center mb-8"
                 >
                     <h2 className="text-4xl font-bold text-amber-500 mb-4">
-                        CEO Statement
+                        Sambutan CEO
                     </h2>
                 </motion.div>
                 <motion.div

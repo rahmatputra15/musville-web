@@ -111,7 +111,7 @@ const DashboardNavbar = ({
                                     </div>
                                     <div className="p-3 text-center border-t border-amber-500/30">
                                         <Link
-                                            href="/dashboard/notifications"
+                                            href="#"
                                             className="text-sm text-amber-400 hover:text-amber-300"
                                         >
                                             View all notifications
@@ -204,7 +204,7 @@ const DashboardNavbar = ({
                                     </div>
                                     <div className="p-2">
                                         <Link
-                                            href="/dashboard/profile"
+                                            href="#"
                                             className="flex items-center gap-3 px-4 py-2 text-gray-300 hover:bg-gray-800 rounded-lg transition"
                                         >
                                             <svg
@@ -224,7 +224,7 @@ const DashboardNavbar = ({
                                             Profile
                                         </Link>
                                         <Link
-                                            href="/dashboard/settings"
+                                            href="#"
                                             className="flex items-center gap-3 px-4 py-2 text-gray-300 hover:bg-gray-800 rounded-lg transition"
                                         >
                                             <svg

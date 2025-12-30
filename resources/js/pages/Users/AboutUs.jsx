@@ -10,15 +10,15 @@ const AboutUs = ({ banner, statement, profile, goals, journeys }) => {
 
     const profiles = [
         {
-            title: "Our History",
+            title: "Cerita Kami",
             content: profile.our_story,
         },
         {
-            title: "Core Business",
+            title: "Bisnis Inti Kami",
             content: profile.core_business,
         },
         {
-            title: "Our Commitment",
+            title: "Komitmen Kami",
             content: profile.our_commitment,
         },
     ];
@@ -50,12 +50,12 @@ const AboutUs = ({ banner, statement, profile, goals, journeys }) => {
                             className="text-center px-4"
                         >
                             <h1 className="mt-10 text-5xl md:text-6xl font-bold text-white mb-4 drop-shadow-lg">
-                                {banner ? banner.title : "About Us"}
+                                {banner ? banner.title : "Tentang Kami"}
                             </h1>
                             <p className="text-gray-200 text-lg md:text-xl max-w-2xl mx-auto drop-shadow">
                                 {banner
                                     ? banner.subtitle
-                                    : "Building dreams, creating value together"}
+                                    : "Membangun impian, menciptakan nilai bersama"}
                             </p>
                         </motion.div>
                     </div>
@@ -72,7 +72,7 @@ const AboutUs = ({ banner, statement, profile, goals, journeys }) => {
                             className="text-center mb-8"
                         >
                             <h2 className="text-4xl font-bold text-amber-500 mb-4">
-                                CEO Statement
+                                Sambutan CEO
                             </h2>
                         </motion.div>
                         <motion.div
@@ -133,7 +133,7 @@ const AboutUs = ({ banner, statement, profile, goals, journeys }) => {
                             className="text-center mb-12"
                         >
                             <h2 className="text-4xl font-bold text-amber-500 mb-4">
-                                Company Profile
+                                Profil Perusahaan
                             </h2>
                         </motion.div>
                         {/* Company Info Stats */}
@@ -149,7 +149,7 @@ const AboutUs = ({ banner, statement, profile, goals, journeys }) => {
                                     {profile.starter}
                                 </div>
                                 <div className="text-gray-400 text-sm uppercase tracking-wide">
-                                    Founded As Agency
+                                    Didirikan sebagai Agensi
                                 </div>
                             </div>
                             <div className="group">
@@ -157,7 +157,7 @@ const AboutUs = ({ banner, statement, profile, goals, journeys }) => {
                                     {profile.starter_company}
                                 </div>
                                 <div className="text-gray-400 text-sm uppercase tracking-wide">
-                                    PT MUS Established
+                                    PT MUS Didirikan
                                 </div>
                             </div>
                             <div className="group">
@@ -165,7 +165,7 @@ const AboutUs = ({ banner, statement, profile, goals, journeys }) => {
                                     {profile.business_unit}
                                 </div>
                                 <div className="text-gray-400 text-sm uppercase tracking-wide">
-                                    Business Units
+                                    Unit Bisnis
                                 </div>
                             </div>
                         </motion.div>
@@ -219,10 +219,10 @@ const AboutUs = ({ banner, statement, profile, goals, journeys }) => {
                             className="text-center mb-12"
                         >
                             <h2 className="text-4xl font-bold mb-4 drop-shadow-lg">
-                                Company Goals
+                                Tujuan Perusahaan
                             </h2>
                             <p className="text-amber-100">
-                                Our vision for the future
+                                Visi kami untuk masa depan properti berkualitas
                             </p>
                         </motion.div>
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
@@ -255,7 +255,7 @@ const AboutUs = ({ banner, statement, profile, goals, journeys }) => {
                                         </div>
                                     </div>
                                     <h3 className="text-2xl font-semibold mb-3">
-                                        Vision
+                                        Visi
                                     </h3>
                                     <p className="text-amber-100">
                                         {goal.description}
@@ -277,10 +277,11 @@ const AboutUs = ({ banner, statement, profile, goals, journeys }) => {
                             className="text-center mb-12"
                         >
                             <h2 className="text-4xl font-bold text-amber-500 mb-4">
-                                Company Journey
+                                Perjalanan Perusahaan
                             </h2>
                             <p className="text-gray-400">
-                                Our path to building quality properties
+                                Langkah kami dalam membangun properti
+                                berkualitas
                             </p>
                         </motion.div>
                         <div className="relative">

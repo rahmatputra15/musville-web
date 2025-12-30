@@ -13,7 +13,7 @@ const Footer = () => {
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
                     <div>
                         <h2 className="text-3xl font-bold text-amber-500 mb-6">
-                            Get In Touch
+                            Hubungi Kami
                         </h2>
                         <p className="text-gray-400 mb-8">{contact?.address}</p>
                         <div className="space-y-4">
@@ -53,7 +53,7 @@ const Footer = () => {
                     </div>
                     <div>
                         <h3 className="text-2xl font-semibold text-amber-500 mb-6">
-                            Follow Us
+                            Ikuti Kami di Media Sosial
                         </h3>
                         <div className="flex space-x-4">
                             <a

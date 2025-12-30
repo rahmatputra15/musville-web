@@ -10,16 +10,21 @@ const Navbar = ({ activePage = "home" }) => {
             <nav className="bg-black/30 backdrop-blur-md border-b border-amber-500/20 shadow-lg fixed w-full top-0 z-50 transition-all">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     <div className="flex justify-between h-16">
-                        <div className="flex items-center gap-3">
-                            <img
-                                src="/assets/logos/logo.png"
-                                alt="Musville Logo"
-                                className="h-10 w-10 object-contain"
-                            />
-                            <span className="text-2xl font-bold text-amber-500 drop-shadow-[0_0_10px_rgba(245,158,11,0.5)]">
-                                MUSVILLE
-                            </span>
-                        </div>
+                        <Link
+                            href="/"
+                            className="font-medium cursor-pointer transition mt-3"
+                        >
+                            <div className="flex items-center justify-center gap-3">
+                                <img
+                                    src="/assets/logos/logo.png"
+                                    alt="Musville Logo"
+                                    className="h-10 w-10 object-contain"
+                                />
+                                <span className="text-2xl font-bold text-amber-500 drop-shadow-[0_0_10px_rgba(245,158,11,0.5)]">
+                                    MUSVILLE
+                                </span>
+                            </div>
+                        </Link>
                         <div className="hidden md:flex items-center space-x-8">
                             <Link
                                 href="/"
