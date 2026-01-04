@@ -140,15 +140,19 @@ const Navbar = ({ activePage = "home" }) => {
                             About
                         </Link>
                         <Link
+                            href="/partnership"
+                            onClick={() => setMobileMenuOpen(false)}
+                            className="block px-4 py-3 rounded-lg text-gray-200 hover:text-amber-400 hover:bg-amber-500/10 transition font-medium cursor-pointer"
+                        >
+                            Partnership
+                        </Link>
+                        <Link
                             href="/contact"
                             onClick={() => setMobileMenuOpen(false)}
                             className="block px-4 py-3 rounded-lg text-gray-200 hover:text-amber-400 hover:bg-amber-500/10 transition font-medium cursor-pointer"
                         >
                             Contact
                         </Link>
-                        <button className="w-full mt-3 bg-linear-to-r from-amber-500 to-yellow-600 text-black px-6 py-3 rounded-lg hover:from-amber-600 hover:to-yellow-700 transition font-semibold shadow-lg shadow-amber-500/30 cursor-pointer">
-                            Get Started
-                        </button>
                     </div>
                 </div>
             )}
