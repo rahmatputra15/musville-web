@@ -1,4 +1,4 @@
-import { Link } from "@inertiajs/react";
+import { Link, router, usePage } from "@inertiajs/react";
 import { useState } from "react";
 
 const DashboardNavbar = ({
@@ -7,8 +7,22 @@ const DashboardNavbar = ({
     mobileMenuOpen,
     setMobileMenuOpen,
 }) => {
+    const { auth } = usePage().props;
     const [showNotifications, setShowNotifications] = useState(false);
     const [showUserMenu, setShowUserMenu] = useState(false);
+
+    const handleLogout = () => {
+        router.post("/logout");
+    };
+
+    const getInitials = (name) => {
+        return name
+            .split(" ")
+            .map((word) => word[0])
+            .join("")
+            .toUpperCase()
+            .slice(0, 2);
+    };
 
     return (
         <nav
@@ -97,7 +111,7 @@ const DashboardNavbar = ({
                                     </div>
                                     <div className="p-3 text-center border-t border-amber-500/30">
                                         <Link
-                                            href="/dashboard/notifications"
+                                            href="#"
                                             className="text-sm text-amber-400 hover:text-amber-300"
                                         >
                                             View all notifications
@@ -113,15 +127,25 @@ const DashboardNavbar = ({
                                 onClick={() => setShowUserMenu(!showUserMenu)}
                                 className="flex items-center gap-2 p-2 hover:bg-gray-800 rounded-lg transition"
                             >
-                                <div className="w-9 h-9 bg-amber-500 rounded-full flex items-center justify-center text-black font-bold text-sm">
-                                    A
-                                </div>
+                                {auth?.user?.avatar ? (
+                                    <img
+                                        src={auth.user.avatar}
+                                        alt={auth.user.name}
+                                        className="w-9 h-9 rounded-full object-cover"
+                                    />
+                                ) : (
+                                    <div className="w-9 h-9 bg-amber-500 rounded-full flex items-center justify-center text-black font-bold text-sm">
+                                        {auth?.user
+                                            ? getInitials(auth.user.name)
+                                            : "A"}
+                                    </div>
+                                )}
                                 <div className="hidden md:block text-left">
                                     <p className="text-sm font-medium text-white">
-                                        Admin User
+                                        {auth?.user?.name || "User"}
                                     </p>
                                     <p className="text-xs text-gray-400">
-                                        admin@musville.com
+                                        {auth?.user?.email || "user@email.com"}
                                     </p>
                                 </div>
                                 <svg
@@ -145,22 +169,42 @@ const DashboardNavbar = ({
                                 <div className="absolute right-0 mt-2 w-64 bg-gray-900 border border-amber-500/30 rounded-lg shadow-2xl overflow-hidden z-50">
                                     <div className="p-4 border-b border-amber-500/30">
                                         <div className="flex items-center gap-3">
-                                            <div className="w-12 h-12 bg-amber-500 rounded-full flex items-center justify-center text-black font-bold">
-                                                A
-                                            </div>
+                                            {auth?.user?.avatar ? (
+                                                <img
+                                                    src={auth.user.avatar}
+                                                    alt={auth.user.name}
+                                                    className="w-12 h-12 rounded-full object-cover"
+                                                />
+                                            ) : (
+                                                <div className="w-12 h-12 bg-amber-500 rounded-full flex items-center justify-center text-black font-bold">
+                                                    {auth?.user
+                                                        ? getInitials(
+                                                              auth.user.name
+                                                          )
+                                                        : "A"}
+                                                </div>
+                                            )}
                                             <div>
                                                 <p className="text-sm font-medium text-white">
-                                                    Admin User
+                                                    {auth?.user?.name || "User"}
                                                 </p>
                                                 <p className="text-xs text-gray-400">
-                                                    admin@musville.com
+                                                    {auth?.user?.email ||
+                                                        "user@email.com"}
                                                 </p>
+                                                {auth?.user?.roles &&
+                                                    auth.user.roles.length >
+                                                        0 && (
+                                                        <span className="inline-block mt-1 px-2 py-0.5 bg-amber-500/20 text-amber-400 text-xs rounded">
+                                                            {auth.user.roles[0]}
+                                                        </span>
+                                                    )}
                                             </div>
                                         </div>
                                     </div>
                                     <div className="p-2">
                                         <Link
-                                            href="/dashboard/profile"
+                                            href="#"
                                             className="flex items-center gap-3 px-4 py-2 text-gray-300 hover:bg-gray-800 rounded-lg transition"
                                         >
                                             <svg
@@ -180,7 +224,7 @@ const DashboardNavbar = ({
                                             Profile
                                         </Link>
                                         <Link
-                                            href="/dashboard/settings"
+                                            href="#"
                                             className="flex items-center gap-3 px-4 py-2 text-gray-300 hover:bg-gray-800 rounded-lg transition"
                                         >
                                             <svg
@@ -206,10 +250,8 @@ const DashboardNavbar = ({
                                         </Link>
                                     </div>
                                     <div className="p-2 border-t border-amber-500/30">
-                                        <Link
-                                            href="/logout"
-                                            method="post"
-                                            as="button"
+                                        <button
+                                            onClick={handleLogout}
                                             className="w-full flex items-center gap-3 px-4 py-2 text-red-400 hover:bg-red-500/20 rounded-lg transition"
                                         >
                                             <svg
@@ -227,7 +269,7 @@ const DashboardNavbar = ({
                                                 />
                                             </svg>
                                             Logout
-                                        </Link>
+                                        </button>
                                     </div>
                                 </div>
                             )}

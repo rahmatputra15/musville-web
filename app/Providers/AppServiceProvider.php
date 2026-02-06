@@ -2,7 +2,11 @@
 
 namespace App\Providers;
 
+use Inertia\Inertia;
+use App\Models\Contact;
+use Illuminate\Support\Facades\Event;
 use Illuminate\Support\ServiceProvider;
+use Laravel\Octane\Events\RequestReceived;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -19,6 +23,12 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        //
+        Inertia::share('contact', function () {
+            return Contact::first();
+        });
+
+        Event::listen(function (RequestReceived $_) {
+            Meta::cleanup();
+        });
     }
 }

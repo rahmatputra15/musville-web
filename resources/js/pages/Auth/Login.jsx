@@ -1,19 +1,36 @@
-import { Head, Link, useForm } from "@inertiajs/react";
-import { motion } from "framer-motion";
-import { useState } from "react";
+import { Head, Link, useForm, usePage } from "@inertiajs/react";
+import { motion, AnimatePresence } from "framer-motion";
+import { useState, useEffect } from "react";
 
 const Login = () => {
-    const { data, setData, post, processing, errors } = useForm({
+    const { flash } = usePage().props;
+    const { data, setData, post, processing, errors, reset } = useForm({
         email: "",
         password: "",
         remember: false,
     });
 
     const [showPassword, setShowPassword] = useState(false);
+    const [notification, setNotification] = useState(null);
+
+    useEffect(() => {
+        if (flash?.error) {
+            setNotification({ type: "error", message: flash.error });
+            setTimeout(() => setNotification(null), 5000);
+        }
+        if (flash?.success) {
+            setNotification({ type: "success", message: flash.success });
+            setTimeout(() => setNotification(null), 5000);
+        }
+    }, [flash]);
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        post("/login");
+        post("/login", {
+            onError: () => {
+                reset("password");
+            },
+        });
     };
 
     return (
@@ -31,6 +48,80 @@ const Login = () => {
             </Head>
 
             <div className="min-h-screen bg-linear-to-br from-black via-gray-900 to-black flex items-center justify-center px-4 sm:px-6 lg:px-8 relative overflow-hidden">
+                {/* Notification */}
+                <AnimatePresence>
+                    {notification && (
+                        <motion.div
+                            initial={{ opacity: 0, y: -50 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            exit={{ opacity: 0, y: -50 }}
+                            className="fixed top-4 right-4 z-50 max-w-md"
+                        >
+                            <div
+                                className={`p-4 rounded-lg shadow-lg border ${
+                                    notification.type === "error"
+                                        ? "bg-red-500/90 border-red-600 text-white"
+                                        : "bg-green-500/90 border-green-600 text-white"
+                                } backdrop-blur-sm`}
+                            >
+                                <div className="flex items-center gap-3">
+                                    {notification.type === "error" ? (
+                                        <svg
+                                            xmlns="http://www.w3.org/2000/svg"
+                                            className="h-6 w-6"
+                                            fill="none"
+                                            viewBox="0 0 24 24"
+                                            stroke="currentColor"
+                                        >
+                                            <path
+                                                strokeLinecap="round"
+                                                strokeLinejoin="round"
+                                                strokeWidth={2}
+                                                d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+                                            />
+                                        </svg>
+                                    ) : (
+                                        <svg
+                                            xmlns="http://www.w3.org/2000/svg"
+                                            className="h-6 w-6"
+                                            fill="none"
+                                            viewBox="0 0 24 24"
+                                            stroke="currentColor"
+                                        >
+                                            <path
+                                                strokeLinecap="round"
+                                                strokeLinejoin="round"
+                                                strokeWidth={2}
+                                                d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
+                                            />
+                                        </svg>
+                                    )}
+                                    <p className="font-medium">
+                                        {notification.message}
+                                    </p>
+                                    <button
+                                        onClick={() => setNotification(null)}
+                                        className="ml-auto hover:opacity-70"
+                                    >
+                                        <svg
+                                            xmlns="http://www.w3.org/2000/svg"
+                                            className="h-5 w-5"
+                                            viewBox="0 0 20 20"
+                                            fill="currentColor"
+                                        >
+                                            <path
+                                                fillRule="evenodd"
+                                                d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+                                                clipRule="evenodd"
+                                            />
+                                        </svg>
+                                    </button>
+                                </div>
+                            </div>
+                        </motion.div>
+                    )}
+                </AnimatePresence>
+
                 {/* Animated Background Elements */}
                 <div className="absolute inset-0 overflow-hidden">
                     <motion.div
@@ -116,6 +207,7 @@ const Login = () => {
                                         }
                                         className="w-full px-4 py-3 bg-black/50 border border-amber-500/50 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-transparent transition"
                                         placeholder="Enter your email"
+                                        autoFocus
                                         required
                                     />
                                     {errors.email && (

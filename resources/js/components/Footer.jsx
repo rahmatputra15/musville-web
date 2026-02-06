@@ -1,6 +1,9 @@
+import { usePage } from "@inertiajs/react";
 import { motion } from "framer-motion";
 
 const Footer = () => {
+    const { contact } = usePage().props;
+
     return (
         <footer
             id="contact"
@@ -8,65 +11,54 @@ const Footer = () => {
         >
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
-                    <motion.div
-                        initial={{ opacity: 0, x: -50 }}
-                        whileInView={{ opacity: 1, x: 0 }}
-                        viewport={{ once: true }}
-                        transition={{ duration: 0.6 }}
-                    >
+                    <div>
                         <h2 className="text-3xl font-bold text-amber-500 mb-6">
-                            Get In Touch
+                            Hubungi Kami
                         </h2>
-                        <p className="text-gray-400 mb-8">
-                            Connect with us through our social media channels or
-                            contact us directly.
-                        </p>
+                        <p className="text-gray-400 mb-8">{contact?.address}</p>
                         <div className="space-y-4">
                             <div className="flex items-center">
                                 <svg
                                     className="w-6 h-6 text-amber-500 mr-3"
-                                    fill="currentColor"
+                                    fill="none"
+                                    stroke="currentColor"
                                     viewBox="0 0 24 24"
                                 >
-                                    <path d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                                    <path
+                                        strokeLinecap="round"
+                                        strokeLinejoin="round"
+                                        strokeWidth={2}
+                                        d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
+                                    />
                                 </svg>
-                                <span>info@company.com</span>
+                                <span>{contact?.email}</span>
                             </div>
                             <div className="flex items-center">
                                 <svg
                                     className="w-6 h-6 text-emerald-500 mr-3"
-                                    fill="currentColor"
+                                    fill="none"
+                                    stroke="currentColor"
                                     viewBox="0 0 24 24"
                                 >
-                                    <path d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
+                                    <path
+                                        strokeLinecap="round"
+                                        strokeLinejoin="round"
+                                        strokeWidth={2}
+                                        d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"
+                                    />
                                 </svg>
-                                <span>+62 123 4567 8900</span>
-                            </div>
-                            <div className="flex items-center">
-                                <svg
-                                    className="w-6 h-6 text-emerald-500 mr-3"
-                                    fill="currentColor"
-                                    viewBox="0 0 24 24"
-                                >
-                                    <path d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
-                                    <path d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
-                                </svg>
-                                <span>Jakarta, Indonesia</span>
+                                <span>{contact?.phone}</span>
                             </div>
                         </div>
-                    </motion.div>
-                    <motion.div
-                        initial={{ opacity: 0, x: 50 }}
-                        whileInView={{ opacity: 1, x: 0 }}
-                        viewport={{ once: true }}
-                        transition={{ duration: 0.6 }}
-                    >
+                    </div>
+                    <div>
                         <h3 className="text-2xl font-semibold text-amber-500 mb-6">
-                            Follow Us
+                            Ikuti Kami di Media Sosial
                         </h3>
                         <div className="flex space-x-4">
                             <a
-                                href="#"
+                                href={`${contact?.facebook}`}
+                                target="_blank"
                                 className="w-12 h-12 bg-amber-500/10 border border-amber-500/30 hover:bg-amber-500 hover:border-amber-500 rounded-full flex items-center justify-center transition group cursor-pointer"
                             >
                                 <span className="sr-only">Facebook</span>
@@ -79,12 +71,13 @@ const Footer = () => {
                                 </svg>
                             </a>
                             <a
-                                href="#"
+                                href={`${contact?.instagram}`}
+                                target="_blank"
                                 className="w-12 h-12 bg-amber-500/10 border border-amber-500/30 hover:bg-amber-500 hover:border-amber-500 rounded-full flex items-center justify-center transition group cursor-pointer"
                             >
                                 <span className="sr-only">Instagram</span>
                                 <svg
-                                    className="w-6 h-6"
+                                    className="w-6 h-6 text-amber-500 group-hover:text-black transition"
                                     fill="currentColor"
                                     viewBox="0 0 24 24"
                                 >
@@ -92,8 +85,9 @@ const Footer = () => {
                                 </svg>
                             </a>
                             <a
-                                href="#"
-                                className="w-12 h-12 bg-green-500 hover:bg-green-500/70 rounded-full flex items-center justify-center transition cursor-pointer"
+                                href={`https://wa.me/${contact?.phone}`}
+                                target="_blank"
+                                className="w-12 h-12 bg-amber-500/10 border border-amber-500/30 hover:bg-amber-500 hover:border-amber-500 rounded-full flex items-center justify-center transition group cursor-pointer"
                             >
                                 <span className="sr-only">WhatsApp</span>
                                 <svg
@@ -105,20 +99,14 @@ const Footer = () => {
                                 </svg>
                             </a>
                         </div>
-                    </motion.div>
+                    </div>
                 </div>
-                <motion.div
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.6, delay: 0.3 }}
-                    className="mt-12 pt-8 border-t border-amber-500/20 text-center text-gray-500"
-                >
+                <div className="mt-12 pt-8 border-t border-amber-500/20 text-center text-gray-500">
                     <p>
                         &copy; 2025 PT. Madani Utama Selebes. All rights
                         reserved.
                     </p>
-                </motion.div>
+                </div>
             </div>
         </footer>
     );

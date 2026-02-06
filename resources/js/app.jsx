@@ -1,3 +1,4 @@
+import "../css/app.css";
 import "./bootstrap";
 
 import { createInertiaApp } from "@inertiajs/react";
@@ -5,7 +6,7 @@ import { createRoot } from "react-dom/client";
 
 createInertiaApp({
     title: (title) =>
-        title ? `${title}` : "Musville - PT. Madani Utama Selebes",
+        title ? `${title}  - Musville` : "Musville - PT. Madani Utama Selebes",
     resolve: (name) => {
         const pages = import.meta.glob("./pages/**/*.jsx", { eager: true });
         return pages[`./pages/${name}.jsx`];
